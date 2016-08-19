@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>真题双助</title>
+    <link href="../js/lib/bootstrap-3.3.0-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../js/lib/jquery1.11.1/select2/select2.css" rel="stylesheet" type="text/css"/>
+    <link href="../js/lib/jquery1.11.1/select2/select2-bootstrap.css" rel="stylesheet"type="text/css"/>
+    <link href="../js/lib/bootstrap-3.3.0-dist/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../js/lib/bootstrap-table-dist/bootstrap-table.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../js/lib/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" type="text/css"/>
+    <link href="../js/lib/popUpBox/inside.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/main.css"  rel="stylesheet" type="text/css"/>
+    <link href="../css/exam.css"  rel="stylesheet" type="text/css"/>
+    <link href="../css/style.css"  rel="stylesheet" type="text/css"/>
+    <link href="../js/lib/chart/morris.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../js/lib/font-awesome/css/font-awesome.css"/>
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            min-width: 800px;
+            /*min-height: 768px;*/
+            margin: 0;
+            padding: 0;
+            font-family: "Helvetica Neue", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", "黑体", Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-default navbar-top" role="navigation">
+    <div class="container-fluid nav-title">
+        <div class="navbar-header">
+            <!--<a class="navbar-brand logo" href="javascript:void(0);"></a>-->
+            <span class="navbar-brand system">全军心理咨询师职业培训</span>
+            <span class="navbar-brand entitle">www.qjxlzxspx.com</span>
+        </div>
+
+    </div>
+</nav>
+
+<div id="maincontent">
+    <div class="col-md-2 ">
+        <iframe name="leftFrame" id="category" scrolling="yes" src="http://192.168.1.101:8081/2j/left.asp?uid=11082" style="width: 100%;height: 500px">
+
+        </iframe>
+    </div>
+
+    <div class="col-md-10">
+        <iframe name="mainFrame" id="examcontent" scrolling="yes"  src="http://192.168.1.101:8081/w/2j/w_ks_index.asp?uid=11082" style="width: 100%;height: 500px">
+
+        </iframe>
+
+    </div>
+
+</div>
+<!--[if lt IE9]>
+<script src="../js/lib/html5/respond.min.js"></script>
+<script src="../js/lib/html5/html5.js"></script>
+<script src="../js/lib/html5/json2.js"></script>
+<![endif]-->
+<script src="../js/lib/jquery1.11.1/jquery-1.11.1.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        $('#category').css('height',window.screen.availHeight-50);
+        $('#examcontent').css('height',window.screen.availHeight-50);
+    });
+
+</script>
+</body>
+</html>

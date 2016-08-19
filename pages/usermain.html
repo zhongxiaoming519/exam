@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <title>全军心理咨询师培训中心</title>
+    <link href="../js/lib/bootstrap-3.3.0-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../js/lib/jquery1.11.1/select2/select2.css" rel="stylesheet" type="text/css"/>
+    <link href="../js/lib/popUpBox/inside.css" rel="stylesheet" type="text/css"/>
+    <link href="../js/lib/jquery1.11.1/select2/select2-bootstrap.css" rel="stylesheet" type="text/css"/>
+    <link href="../js/lib/bootstrap-3.3.0-dist/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../js/lib/bootstrap-table-dist/bootstrap-table.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../js/lib/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" type="text/css"/>
+    <link href="../js/lib/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/main.css">
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            min-width: 800px;
+            /*min-height: 768px;*/
+            margin: 0;
+            padding: 0;
+            font-family: "Helvetica Neue", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", "黑体", Arial, sans-serif;
+        }
+
+        #main-nav {
+            margin-left: 1px;
+        }
+
+        #main-nav.nav-tabs.nav-stacked > li > a {
+            padding: 10px 8px;
+            font-size: 15px;
+            font-weight: 600;
+            color:#000000;
+            background: #E9E9E9;
+            background: -moz-linear-gradient(top, #FAFAFA 0%, #E9E9E9 100%);
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #FAFAFA), color-stop(100%, #E9E9E9));
+            background: -webkit-linear-gradient(top, #FAFAFA 0%, #E9E9E9 100%);
+            background: -o-linear-gradient(top, #FAFAFA 0%, #E9E9E9 100%);
+            background: -ms-linear-gradient(top, #FAFAFA 0%, #E9E9E9 100%);
+            background: linear-gradient(top, #FAFAFA 0%, #E9E9E9 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FAFAFA', endColorstr='#E9E9E9');
+            -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#FAFAFA', endColorstr='#E9E9E9')";
+            border: 1px solid #D5D5D5;
+            border-radius: 4px;
+        }
+
+        #main-nav.nav-tabs.nav-stacked > li > a > span {
+            color: rgba(69, 85, 232, 0.95);
+        }
+
+        #main-nav.nav-tabs.nav-stacked > li.active > a, #main-nav.nav-tabs.nav-stacked > li > a:hover {
+            color: #FFF;
+            background: #428bca;
+            background: -moz-linear-gradient(top, #428bca 0%, #428bca 100%);
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #428bca), color-stop(100%, #428bca));
+            background: -webkit-linear-gradient(top, #428bca 0%, #428bca 100%);
+            background: -o-linear-gradient(top, #428bca 0%, #428bca 100%);
+            background: -ms-linear-gradient(top, #428bca 0%, #428bca 100%);
+            background: linear-gradient(top, #428bca 0%, #428bca 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4A515B', endColorstr='#3C4049');
+            -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#4A515B', endColorstr='#3C4049')";
+            border-color: #2B2E33;
+        }
+
+        #main-nav.nav-tabs.nav-stacked > li.active > a, #main-nav.nav-tabs.nav-stacked > li > a:hover > span {
+            color: #FFF;
+        }
+
+        #main-nav.nav-tabs.nav-stacked > li {
+            margin-bottom: 4px;
+        }
+
+        .navbar-brand.logo {
+        / / background : url('../img/title1.jpg') no-repeat;
+            display: inline-block;
+            vertical-align: middle;
+            padding-left: 200px;
+            color: #fff;
+
+        }
+
+        .navbar-brand.system {
+            font-size: 24px;
+            padding-bottom: 0px;
+        }
+
+        .navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand {
+            margin-left: 15px;
+        }
+
+        .navbar .navbar-default .navbar-top {
+            color: #eee
+        }
+    </style>
+    <!--[if lt IE 9]>
+    <script src="../js/lib/html5/respond.min.js"></script>
+    <script src="../js/lib/html5/html5.js"></script>
+
+    <script src="../js/lib/html5/json2.js"></script>
+    <![endif]-->
+
+
+
+</head>
+<body>
+<nav class="navbar navbar-default navbar-top" role="navigation">
+    <div class="container-fluid nav-title">
+        <div class="navbar-header">
+            <!--<a class="navbar-brand logo" href="javascript:void(0);"></a>-->
+            <span class="navbar-brand system">全军心理咨询师培训中心</span>
+            <span class="navbar-brand entitle">www.qjxlzxspx.com</span>
+        </div>
+        <div class="collapse navbar-collapse" id="nav-button">
+            <ul class="nav navbar-nav navbar-right">
+
+                <li>
+                    <a href="#" data-toggle="popover" title="用户信息" data-container="body" data-placement="bottom">
+                        <i class="glyphicon glyphicon-user"></i>
+                        <span id="currentUser" style="padding-right: 7px"></span>|
+                    </a>
+                </li>
+                <li>
+                    <a title="选择专业">
+                        <i class="glyphicon glyphicon-chevron-down"></i>专业
+
+                    </a>
+                </li>
+                <li>
+                    <input type="hidden" class="form-control input-sm personalinfo"
+                           style="margin-top: 10px;width: 200px" id="userspecials">
+                </li>
+
+                <!--<li>-->
+                <!--<a id="returnBack" href="login.html">-->
+                <!--<i class="glyphicon glyphicon-chevron-left"></i>返回-->
+                <!--</a>-->
+                <!--</li>-->
+                <li>
+                    <a style="cursor:pointer" id="login-out" onclick="window.location.replace('login.html')">
+                        <i class="glyphicon glyphicon-log-out"></i>退出
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid tab-content ">
+
+
+    <div id="maincontent" class="row tab-pane active">
+        <div class="col-md-2">
+
+            <ul id="main-nav" class="nav nav-tabs nav-stacked" style="">
+
+
+                <li role="presentation">
+                    <a href="#">
+                        <i class="glyphicon glyphicon-th-large"></i>
+                        首页
+                    </a>
+                </li>
+                <li role="presentation" id="kecheng" class="active" style="display:none">
+                    <a id="kechengxuexi" href="#lessonlist" data-toggle="tab">
+                        <i class="glyphicon glyphicon-book"></i>
+                        视频课程
+
+                    </a>
+
+                </li>
+
+                <li role="presentation" id="examandcate" style="display:none">
+                    <a href="#workandexam" data-toggle="tab">
+                        <i class="glyphicon glyphicon-credit-card"></i>
+                        课后练习
+                    </a>
+                </li>
+                <li role="presentation" id="jianding" style="display:none">
+                    <a href="#tutorship" data-toggle="tab">
+                        <i class="glyphicon glyphicon-calendar"></i>
+                        考前冲刺辅导
+                    </a>
+                </li>
+                <li role="presentation" id="mocktest" style="display:none">
+                    <a href="#simulationexam" data-toggle="tab">
+                        <i class="glyphicon glyphicon-globe"></i>
+                        实战练习
+
+                    </a>
+                </li>
+
+                <li role="presentation" id="finaltest" style="display:none">
+                    <a href="#graduationexam" data-toggle="tab">
+                        <i class="glyphicon glyphicon-calendar"></i>
+                        学业测验
+                    </a>
+                </li>
+
+                <li role="presentation" id="zkcx" style="display:none">
+                    <a href="exam.html" target="_blank" >
+                        <i class="glyphicon glyphicon-calendar"></i>
+                        考题实练
+                    </a>
+                </li>
+
+                <li role="presentation" id="resourcecenter" style="display:none">
+                    <a href="#">
+                        <i class="glyphicon glyphicon-shopping-cart"></i>
+                        资源中心
+                    </a>
+                </li>
+                <li role="presentation" id="apply" style="display:none">
+                    <a href="#applypanel" data-toggle="tab">
+                        <i class="glyphicon glyphicon-tag"></i>
+                        学籍管理
+                    </a>
+                </li>
+                <li role="presentation" id ='forum' style="display:none">
+                    <a id ='forumlink'  href="#" target="_blank">
+                        <i class="glyphicon glyphicon-align-justify"></i>
+                        论坛咨询
+                    </a>
+                </li>
+
+                <li role="presentation" id="help" style="display:none">
+                    <a href="helpframe.html">
+                        <i class="glyphicon glyphicon-question-sign"></i>
+                        学习帮助
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+
+        <div class="col-md-8 col-container">
+            <div id="userinfo" class="col-container">
+
+            </div>
+            <div class=" tab-content">
+                <!--课程学习-->
+                <div id="lessonlist" class="tab-pane active">
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">课程学习</h3>
+                        </div>
+                        <div class="panel-body">
+                            <table id='tdlessonlist'></table>
+                        </div>
+                    </div>
+
+
+                </div>
+                <!--作业与考试-->
+                <div id="workandexam" class="tab-pane">
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">作业与考试</h3>
+                        </div>
+                        <div class="panel-body">
+                            <table id="workandexamtable">
+
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!--作业与考试章节测试-->
+                <div id="workandchaptertest" class="tab-pane">
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">章节测试</h3>
+                        </div>
+                        <div class="panel-body">
+                            <a href="#workandexam" class="btn btn-primary btn-sm" data-toggle="tab">返回</a>
+                            <div style="text-align: center"><h4 id="testtile"></h4></div>
+                            <table id="workandchaptertesttable">
+
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div id="workandchapterexam" class="tab-pane">
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">单科考试</h3>
+                        </div>
+                        <div class="panel-body">
+                            <a href="#workandexam" class="btn btn-primary btn-sm" data-toggle="tab">返回</a>
+                            <div style="text-align: center"><h4 id="examtile"></h4></div>
+                            <table id="workandchapterexamtable">
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!--鉴定辅导-->
+                <div id="tutorship" class="tab-pane">
+
+                </div>
+
+                <!--模拟考试-->
+
+
+                <div id="simulationexam" class="tab-pane">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">模拟考试（仅供练习使用，不做考试要求）</h3>
+                        </div>
+                        <div class="panel-body">
+                            <table id="simulationexamtable">
+
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!--结业考试-->
+                <div id="graduationexam" class="tab-pane">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">结业考试（参加国家鉴定考试，必须完成此项）</h3>
+                        </div>
+                        <div class="panel-body">
+                            <table id="graduationexamtable">
+
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!--真题双助-->
+                <div id="realexamandhelp" class="tab-pane">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">结业考试</h3>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!--专业选择-->
+                <div id="specialselect" class="tab-pane ">
+                    <table id="specialselecttable">
+
+                    </table>
+                </div>
+
+                <!--学业申请-->
+                <div id="applypanel" class="tab-pane">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">学业申请</h3>
+                        </div>
+                        <div>
+                            <p style="color: red;font-size: 15px" id="operateinfo"></p>
+                        </div>
+                        <table class="table table-condensed">
+                            <tr>
+                                <td>申请</td>
+                                <td><input type="hidden" class="form-control input-sm personalinfo" id="applyoption"></td>
+                                <td>开始时间</td>
+                                <td><input class="form-control input-sm  datePicker personalinfo" id="startdate"
+                                        /></td>
+                                <td id="endtimetd">结束时间</td>
+                                <td><input class="form-control input-sm  datePicker personalinfo" id="enddate"
+                                           value="" type="text"/></td>
+                                <td><a id="submitapply"  class="btn btn-primary btn-sm" onclick="submitapply()" >提交申请</a>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <h5>申请记录：</h5>
+                        <div class="panel-body">
+                            <table id="studentapply">
+
+                            </table>
+                        </div>
+                        <h5>学习期信息：</h5>
+                        <div class="panel-body">
+                            <table id="studentduration">
+
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+                <!--个人资料-->
+                <!--用户信息编辑-->
+                <div class="panel panel-default modal fade" id="div_baseinfopanel" role="dialog">
+
+                    <div class="modal-dialog" style="width: 600px;">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                        aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">用户信息</h4>
+                            </div>
+                            <table id="basetable" class="table table-condensed">
+                                <tbody>
+
+                                <tr>
+                                    <td class="active">用户名</td>
+                                    <td><input id="username" type="text" disabled class="form-control input-sm personalinfo"></td>
+                                    <td class="active">真实姓名</td>
+                                    <td><input id="realname" type="text" class="form-control input-sm personalinfo"></td>
+                                </tr>
+                                <tr>
+                                    <td class="active">密码问题<span style="color: #ff0000;font-size: x-large">*</span></td>
+                                    <td><input id="passwordquestion" type="text" class="form-control input-sm personalinfo">
+                                    </td>
+                                    <td class="active">密码答案<span style="color: #ff0000;font-size: x-large">*</span></td>
+                                    <td><input id="passwordanswer" type="text" class="form-control input-sm personalinfo">
+                                    </td>
+                                </tr>
+
+
+
+                                <tr>
+                                    <td class="active">证件号码</td>
+                                    <td><input id="idnumber" type="text" class="form-control input-sm personalinfo"></td>
+                                    <td class="active">性别</td>
+                                    <td><input type="hidden" class="form-control input-sm personalinfo" id="gender"></td>
+                                </tr>
+                                <tr>
+                                    <td class="active">电子邮箱</td>
+                                    <td><input id="email" type="text" class="form-control input-sm personalinfo"></td>
+                                    <td class="active">出生日期</td>
+                                    <td><input class="form-control input-sm datePicker personalinfo" id="birthday" value=""
+                                               type="text"/></td>
+                                </tr>
+                                <tr>
+                                    <td class="active">固定电话</td>
+                                    <td><input id="phone" type="text" class="form-control input-sm personalinfo"></td>
+                                    <td class="active">手机</td>
+                                    <td><input class="form-control input-sm personalinfo" id="cellphone"></td>
+                                </tr>
+                                <tr>
+                                    <td class="active">所在省</td>
+                                    <td><input id="pravince" type="text" class="form-control input-sm personalinfo"></td>
+                                    <td class="active">单位编码</td>
+                                    <td><input class="form-control input-sm personalinfo" id="unitnum"></td>
+                                </tr>
+                                <tr>
+                                    <td class="active">邮寄地址</td>
+                                    <td><input id="address" type="text" class="form-control input-sm personalinfo"></td>
+                                    <td class="active">邮编</td>
+                                    <td><input class="form-control input-sm personalinfo" id="postnum"></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="active">备注信息</td>
+                                    <td><input id="remark" type="text" class="form-control input-sm personalinfo"></td>
+                                    <td class="active">添加时间</td>
+                                    <td><input disabled class="form-control input-sm  datePicker personalinfo" id="adddate"
+                                               value="" type="text"/></td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+
+                            <div class="modal-footer">
+                                <div class="row">
+                                    <button type="button" class="btn btn-primary" style="position:relative;right: 270px"
+                                            onclick="submitUserInfo();">确 定
+                                    </button>
+                                    <button type="button" class="btn btn-default" style="position: relative;right: 250px"
+                                            onclick="closeModal();">关 闭
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="modal fade" id="passwordmodal" role="dialog">
+                    <div class="modal-dialog" style="width: 420px;">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" onclick="closePasswordModal();">&times;</button>
+                                <h4 class="modal-title">修改密码</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form id="updatePwd_form" class="form-horizontal" style="width:100%;margin-top: 10px;">
+
+                                    <div class="form-group" style="margin-top: 15px;">
+                                        <label class="col-sm-3 control-label">新密码</label>
+
+                                        <div class="col-sm-8">
+                                            <input type="password" id="newPassword" name="newPassword"
+                                                   placeholder="Password" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">确认密码</label>
+
+                                        <div class="col-sm-8">
+                                            <input type="password" id="passwordAgain" name="passwordAgain"
+                                                   placeholder="Password"  class="form-control">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+
+                                <button id="submitbtn" type="button" class="btn btn-primary" onclick="submitPassword();">确 定</button>
+                                <button type="button" class="btn btn-default" onclick="closePasswordModal();">关 闭</button>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+
+        <div class="col-md-2 col-container">
+            <div class="content-box" style="width:100%">
+                <div class="desc-block">
+                    <p class="title" style="text-align: center;color:#428bca;font-size: 18px"><i class="glyphicon glyphicon-th-large"></i>最新公告</p>
+                    <div id="newscontainer">
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div id="vediopage" class="row tab-pane" style="margin-top: 10px">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">教学平台-课程学习</h3>
+            </div>
+            <div class="panel-body">
+                <div class="col-lg-3">
+                    <div id="flashcontainer" style="height: 240px"></div>
+                    <div>
+                        <h4>目录列表</h4>
+                        <table id="coursechapterlist"></table>
+                    </div>
+                </div>
+
+                <div class="col-lg-9">
+                    <div style="font-size: 25px">
+                        <span id="lessontitle" class="label label-default">基础心理学知识</span>
+
+                        <a id="restoremain" href="#maincontent" data-toggle="tab" class="btn btn-primary btn-sm">
+                            返回课程列表</a>
+                    </div>
+                    <iframe id="lessonframe" style="width: 100%;">
+
+                    </iframe>
+                </div>
+
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <div id="vediopagejianding" class="row tab-pane" style="margin-top: 10px">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">教学平台-鉴定辅导</h3>
+            </div>
+            <div class="panel-body">
+                <div class="col-lg-3">
+                    <div id="flashcontainerjianding" style="height: 240px"></div>
+
+                </div>
+
+                <div class="col-lg-9">
+                    <div>
+                        <span id="lessontitlejianding" class="label label-default">基础心理学知识</span>
+
+                        <a id="restoremainjingding" href="#maincontent" data-toggle="tab" class="btn btn-primary btn-sm">
+                            返回主列表</a>
+                    </div>
+                    <iframe id="lessonframejianding"  style="width: 100%;">
+
+                    </iframe>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="../js/lib/jquery1.11.1/jquery-1.11.1.js"></script>
+<script src="../js/lib/jquery1.11.1/jquery.cookie.js" type="text/javascript"></script>
+<script src="../js/lib/bootstrap-3.3.0-dist/js/bootstrap.js"></script>
+<script src="../js/lib/bootstrap-table-dist/bootstrap-table.min.js"></script>
+
+<script src="../js/lib/bootstrap-table-dist/locale/bootstrap-table-zh-CN.min.js"></script>
+
+<script src="../js/lib/bootstrap-datepicker/js/bootstrap-datepicker.js" type="text/javascript"></script>
+<script src="../js/lib/bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-CN.js" type="text/javascript"></script>
+<script type="text/javascript" src="../js/lib/jquery1.11.1/select2/select2.js"></script>
+<script type="text/javascript" src="../js/lib/jquery1.11.1/select2/select2_locale_zh-CN.js"></script>
+<!-- 提示框 JS -->
+<script src="../js/lib/popUpBox/inside.js" type="text/javascript"></script>
+<script src="../js/lib/flvplayer/swfobject.js"></script>
+<script src="../js/main/Application.js"></script>
+<script src="../js/main/Application.Util.js"></script>
+<script src="../js/main/usermain.js"></script>
+
+</body>
+</html>

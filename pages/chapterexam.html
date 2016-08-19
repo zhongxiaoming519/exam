@@ -1,0 +1,698 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <title></title>
+    <link href="../js/lib/bootstrap-3.3.0-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../js/lib/jquery1.11.1/select2/select2.css" rel="stylesheet" type="text/css"/>
+    <link href="../js/lib/jquery1.11.1/select2/select2-bootstrap.css" rel="stylesheet"type="text/css"/>
+    <link href="../js/lib/bootstrap-3.3.0-dist/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../js/lib/bootstrap-table-dist/bootstrap-table.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../js/lib/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" type="text/css"/>
+    <link href="../js/lib/popUpBox/inside.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/main.css"  rel="stylesheet" type="text/css"/>
+    <link href="../css/exam.css"  rel="stylesheet" type="text/css"/>
+    <link href="../css/style.css"  rel="stylesheet" type="text/css"/>
+    <link href="../js/lib/chart/morris.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../js/lib/font-awesome/css/font-awesome.css"/>
+</head>
+<body>
+<div>
+    <div>
+        <td><table width="100%" border="0" cellspacing="4" cellpadding="1">
+            <tr height="23">
+                <td width="15%" align="right" class="font2">试卷编号：</td>
+                <td width="35%" class="font3" align="left"><input disabled type="text" id="paperno"/></td>
+                <td width="15%" width="80" align="right" class="font2">考试时间：</td>
+                <td width="35%" class="font3" align="left"><input disabled type="text" id="papertime"/></td>
+            </tr>
+            <tr height="23">
+                <td align="right" class="font2">答题人：</td>
+                <td class="font3" align="left"><input type="text" disabled id="papername"/></td>
+                <td align="right" class="font2">考试用时：</td>
+                <td class="font3" align="left"><input type="text" disabled id="papertimeused"/></td>
+            </tr>
+        </table></td>
+
+    </div>
+    <div >
+        <ul id="finalexampaper-body" style="padding:0px;">
+
+        </ul>
+    </div>
+
+</div>
+
+<!--[if lt IE9]>
+<script src="../js/lib/html5/respond.min.js"></script>
+<script src="../js/lib/html5/html5.js"></script>
+<script src="../js/lib/html5/json2.js"></script>
+<![endif]-->
+
+<script src="../js/lib/jquery1.11.1/jquery-1.11.1.js"></script>
+<script src="../js/lib/jquery1.11.1/jquery.cookie.js" type="text/javascript"></script>
+<script src="../js/lib/bootstrap-3.3.0-dist/js/bootstrap.js"></script>
+<script type="text/javascript" src="../js/lib/chart/raphael-min.js"></script>
+<script type="text/javascript" src="../js/lib/chart/morris.js"></script>
+<!-- 提示框 JS -->
+<script src="../js/lib/popUpBox/inside.js" type="text/javascript"></script>
+
+<script src="../js/main/Application.js"></script>
+<script src="../js/main/Application.Util.js"></script>
+<script src="../js/main/all.js"></script>
+
+
+<script type="text/javascript">
+    $(document).ready(function(){
+
+
+
+        var no = $.cookie('no');
+        getChapterExamDetail(no)
+        function getChapterExamDetail(no){
+            var para = 'parameter='+JSON.stringify({'no':no});
+
+            Application.Util.ajaxConstruct(Application.serverHost + "/edu/getChapterTestListById",'POST',para,'json',function(data){
+                if(data.errcode == 0){
+                    //var answerSheet =  genrateAnswerSheet();
+                    var content = ''
+                    content +='<li><div><h3>一、单项选择题（每小题只有一个最恰当的答案。错选、少选、多选，则该题均不得分。）</h3></div></li>'
+
+                    for(var key in data.data){
+
+                        $('#paperno').val(data.data[key].no);
+                        $('#papertime').val(data.data[key].time_limit);
+                        $('#papername').val(data.data[key].username);
+                        $('#papertimeused').val(data.data[key].time_used);
+                        if(data.data[key].answer.split(',').length == 1){
+
+                            //for (var item in Application.paperdata.single) {
+                            var obj = {}
+                            obj.answer= data.data[key].answer;
+                            obj.point = data.data[key].sub_score;
+
+                            obj.question_type_id=1;
+                            content += getReportStringFromXML(1, data.data[key]);
+
+                            //}
+
+                        }
+
+                    }
+                    content +='<li><div><h3>二、多项选择题（每题有多个答案正确。错选、少选、多选均不得分））</h3></div></li>';
+
+                    for (var item in data.data){
+                        if(data.data[item].answer.split(',').length > 1){
+
+                            //for (var item in Application.paperdata.multi) {
+                            var obj = {}
+                            obj.answer= data.data[item].answer;
+                            obj.point = data.data[item].sub_score;
+                            obj.question_type_id=2;
+                            content += getReportStringFromXML(2, data.data[item]);
+
+                            //}
+
+                        }
+
+                    }
+
+                    $('#finalexampaper-body').empty();
+                    $('#finalexampaper-body').append(content);
+
+                }else{
+                    G.ui.tips.err('查询失败！！');
+                }
+
+            },function(data){
+                G.ui.tips.err('查询失败！！');
+            },'application/x-www-form-urlencoded');
+
+        }
+
+
+        function getReportStringFromXML(type, questionobj) {
+            var sb = '';
+
+            switch (type) {
+                case 1:
+                    sb += "<li class=\"question qt-singlechoice\">";
+                    break;
+                case 2:
+                    sb += "<li class=\"question qt-multiplechoice\">";
+                    break;
+                case 3:
+                    sb += "<li><div class='casedes-div'><h6>"+questionobj.text+"</h6><div></li>"
+                    sb += "<li class=\" qt-casequestion\">";
+                    break;
+                case 4:
+                    sb += "<li class=\"\"><div class='casedes-div'><h6>"+questionobj.text+"</h6><div>";
+                    break;
+                case 5:            sb += "<li class=\"question qt-shortanswer\">";
+                    break;
+                case 6:
+                    sb += "<li class=\"question qt-essay\">";
+                    break;
+                case 7:
+                    sb += "<li class=\"question qt-analytical\">";
+                    break;
+                default:
+                    break;
+            }
+
+            switch (type) {
+                case 1:
+                    sb += "<div class=\"question-title\">";
+                    sb += "<div class=\"question-title-icon\"></div>"
+                    sb += "<span class=\"question-no reportnum\"></span>";
+                    sb += "<span class=\"question-type\" style=\"display: none;\">"
+                    sb += "singlechoice</span>";
+                    sb += "<span class=\"knowledge-point-id\" style=\"display: none;\">" + questionobj.sub_score + "</span>";
+                    sb += "<span class=\"question-type-id\" style=\"display: none;\">" + questionobj.sub_score + "</span>";
+                    sb += "<span>[单选题]</span>";
+                    sb += "<span class=\"question-point-content\">";
+                    sb += "<span>(</span><span class=\"question-point\">" + questionobj.sub_score + "</span><span>分)</span>";
+                    sb += "</span>";
+                    sb += "<span class=\"question-id\" style=\"display:none;\">" + (questionobj.ord-1) + "</span>";
+
+                    sb += "</div>";
+                    sb += "<form class=\"question-body\">";
+                    sb += "<p class=\"question-body-text\">" + questionobj.sub_title;
+                    sb += "</p>";
+                    sb += "<ul class=\"question-opt-list\">";
+                    sb += "<li class=\"question-list-item\">";
+
+                    sb += "<input type=\"radio\" value=\"A\" name=\"question-radio1\" class=\"question-input\">"
+                    sb += "<span class=\"question-li-text\">";
+                    sb += 'A' + ": " + questionobj.sub_op1 + "</span></li></ul>";
+
+                    sb += "<ul class=\"question-opt-list\">";
+                    sb += "<li class=\"question-list-item\">";
+
+                    sb += "<input type=\"radio\" value=\"B\" name=\"question-radio1\" class=\"question-input\">"
+                    sb += "<span class=\"question-li-text\">";
+                    sb += 'B' + ": " + questionobj.sub_op2 + "</span></li></ul>";
+
+
+                    sb += "<ul class=\"question-opt-list\">";
+                    sb += "<li class=\"question-list-item\">";
+
+                    sb += "<input type=\"radio\" value=\"C\" name=\"question-radio1\" class=\"question-input\">"
+                    sb += "<span class=\"question-li-text\">";
+                    sb += 'C' + ": " + questionobj.sub_op3 + "</span></li></ul>";
+
+                    sb += "<ul class=\"question-opt-list\">";
+                    sb += "<li class=\"question-list-item\">";
+
+                    sb += "<input type=\"radio\" value=\"D\" name=\"question-radio1\" class=\"question-input\">"
+                    sb += "<span class=\"question-li-text\">";
+                    sb += 'D' + ": " + questionobj.sub_op4 + "</span></li></ul>";
+
+                    sb += "</form>"
+
+                    sb +="<div class=\"answer-desc\">";
+                    sb +="<div class=\"answer-desc-summary\">";
+                    sb +="<span>正确答案：</span><span id='perfectanswer' style='background:blanchedalmond'>"+questionobj.answer+"</span><br>";
+                    sb +="<span>你的答案：</span><span id='youranswer' style='background: #ff0000'>"+questionobj.sub_answer+"</span>";
+                    sb +="</div></div>";
+                    break;
+                case 2:
+                    sb += "<div class=\"question-title\">";
+                    sb += "<div class=\"question-title-icon\"></div>"
+                    sb += "<span class=\"question-no reportnum\"></span>";
+                    sb += "<span class=\"question-type\" style=\"display: none;\">"
+                    sb += "multiplechoice</span>";
+                    sb += "<span class=\"knowledge-point-id\" style=\"display: none;\">" + questionobj.sub_score + "</span>";
+                    sb += "<span class=\"question-type-id\" style=\"display: none;\">" + questionobj.sub_score + "</span>";
+                    sb += "<span>[多选题]</span>";
+                    sb += "<span class=\"question-point-content\">";
+                    sb += "<span>(</span><span class=\"question-point\">" + questionobj.sub_score + "</span><span>分)</span>";
+                    sb += "</span>";
+                    sb += "<span class=\"question-id\" style=\"display:none;\">" + (questionobj.ord-1) + "</span>";
+
+                    sb += "</div>";
+                    sb += "<form class=\"question-body\">";
+                    sb += "<p class=\"question-body-text\">" + questionobj.sub_title;
+                    sb += "</p>";
+                    sb += "<ul class=\"question-opt-list\">";
+                    sb += "<li class=\"question-list-item\">";
+
+                    sb += "<input type=\"checkbox\" value=\"A\" name=\"question-checkbox1\" class=\"question-input\">"
+                    sb += "<span class=\"question-li-text\">";
+                    sb += 'A' + ": " + questionobj.sub_op1 + "</span></li></ul>";
+
+                    sb += "<ul class=\"question-opt-list\">";
+                    sb += "<li class=\"question-list-item\">";
+
+                    sb += "<input type=\"checkbox\" value=\"B\" name=\"question-checkbox1\" class=\"question-input\">"
+                    sb += "<span class=\"question-li-text\">";
+                    sb += 'B' + ": " + questionobj.sub_op2 + "</span></li></ul>";
+
+
+                    sb += "<ul class=\"question-opt-list\">";
+                    sb += "<li class=\"question-list-item\">";
+
+                    sb += "<input type=\"checkbox\" value=\"C\" name=\"question-checkbox1\" class=\"question-input\">"
+                    sb += "<span class=\"question-li-text\">";
+                    sb += 'C' + ": " + questionobj.sub_op3 + "</span></li></ul>";
+
+                    sb += "<ul class=\"question-opt-list\">";
+                    sb += "<li class=\"question-list-item\">";
+
+                    sb += "<input type=\"checkbox\" value=\"D\" name=\"question-checkbox1\" class=\"question-input\">"
+                    sb += "<span class=\"question-li-text\">";
+                    sb += 'D' + ": " + questionobj.sub_op4 + "</span></li></ul>";
+
+                    sb += "</form>"
+
+                    sb +="<div class=\"answer-desc\">";
+                    sb +="<div class=\"answer-desc-summary\">";
+                    sb +="<span>正确答案：</span><span id='perfectanswer' style='background:blanchedalmond'>"+questionobj.answer+"</span><br>";
+                    sb +="<span>你的答案：</span><span id='youranswer' style='background: #ff0000'>"+questionobj.sub_answer+"</span>";
+                    sb +="</div></div>";
+                    break;
+                case 3:
+
+
+                    for(var item in questionobj.caseSubQuestions){
+
+                        sb += "<div class=\"question question-title\">";
+                        sb += "<div class=\"question-title-icon\"></div>"
+                        sb += "<span class=\"question-no reportnum\"></span>";
+                        sb += "<span class=\"question-type\" style=\"display: none;\">"
+                        sb += "casequestion</span>";
+                        sb += "<span class=\"knowledge-point-id\" style=\"display: none;\"></span>";
+                        sb += "<span class=\"question-type-id\" style=\"display: none;\"></span>";
+                        if(questionobj.caseSubQuestions[item].type_id ==1){
+                            sb += "<span>[多选题]</span>";
+                        }else{
+                            sb += "<span>[单选题]</span>";
+                        }
+
+                        sb += "<span class=\"question-point-content\">";
+                        sb += "<span>(</span><span class=\"question-point\">" + questionobj.caseSubQuestions[item].type_id + "</span><span>分)</span>";
+                        sb += "</span>";
+                        sb += "<span class=\"question-id\" style=\"display:none;\">" + questionobj.caseSubQuestions[item].case_question_id + "</span>";
+
+                        sb += "</div>";
+                        sb += "<form class=\"question-body\">";
+                        sb += "<p class=\"question-body-text\">" + questionobj.caseSubQuestions[item].text;
+                        sb += "</p>";
+                        sb += "<ul class=\"question-opt-list\">";
+                        sb += "<li class=\"question-list-item\">";
+
+                        if(questionobj.caseSubQuestions[item].type_id ==1){
+                            sb += "<input type=\"checkbox\" value=\"A\" name=\"question-checkbox1\" class=\"question-input\">"
+                        }else{
+                            sb += "<input type=\"radio\" value=\"A\" name=\"question-checkbox1\" class=\"question-input\">"
+                        }
+                        //sb += "<input type=\"checkbox\" value=\"A\" name=\"question-checkbox1\" class=\"question-input\">"
+                        sb += "<span class=\"question-li-text\">";
+                        sb += 'A' + ": " + questionobj.caseSubQuestions[item].a + "</span></li></ul>";
+
+                        sb += "<ul class=\"question-opt-list\">";
+                        sb += "<li class=\"question-list-item\">";
+
+                        if(questionobj.caseSubQuestions[item].type_id ==1){
+                            sb += "<input type=\"checkbox\" value=\"B\" name=\"question-checkbox1\" class=\"question-input\">"
+                        }else{
+                            sb += "<input type=\"radio\" value=\"B\" name=\"question-checkbox1\" class=\"question-input\">"
+                        }
+                        //sb += "<input type=\"checkbox\" value=\"B\" name=\"question-checkbox1\" class=\"question-input\">"
+                        sb += "<span class=\"question-li-text\">";
+                        sb += 'B' + ": " + questionobj.caseSubQuestions[item].b + "</span></li></ul>";
+
+
+                        sb += "<ul class=\"question-opt-list\">";
+                        sb += "<li class=\"question-list-item\">";
+
+                        if(questionobj.caseSubQuestions[item].type_id ==1){
+                            sb += "<input type=\"checkbox\" value=\"C\" name=\"question-checkbox1\" class=\"question-input\">"
+                        }else{
+                            sb += "<input type=\"radio\" value=\"C\" name=\"question-checkbox1\" class=\"question-input\">"
+                        }
+                        //sb += "<input type=\"checkbox\" value=\"C\" name=\"question-checkbox1\" class=\"question-input\">"
+                        sb += "<span class=\"question-li-text\">";
+                        sb += 'C' + ": " + questionobj.caseSubQuestions[item].c + "</span></li></ul>";
+
+                        sb += "<ul class=\"question-opt-list\">";
+                        sb += "<li class=\"question-list-item\">";
+
+                        if(questionobj.caseSubQuestions[item].type_id ==1){
+                            sb += "<input type=\"checkbox\" value=\"D\" name=\"question-checkbox1\" class=\"question-input\">"
+                        }else{
+                            sb += "<input type=\"radio\" value=\"D\" name=\"question-checkbox1\" class=\"question-input\">"
+                        }
+                        //sb += "<input type=\"checkbox\" value=\"D\" name=\"question-checkbox1\" class=\"question-input\">"
+                        sb += "<span class=\"question-li-text\">";
+                        sb += 'D' + ": " + questionobj.caseSubQuestions[item].d + "</span></li></ul>";
+
+                        sb += "</form>"
+                        sb +="<div class=\"answer-desc\">";
+                        sb +="<div class=\"answer-desc-summary\">";
+
+                        var answers=[];
+                        for(var key in questionobj.caseSubQuestions[item].answer.split(',')){
+                            switch (questionobj.caseSubQuestions[item].answer.split(',')[key]){
+                                case '0':
+                                    answers.push('A');
+                                    break
+                                case '1':
+                                    answers.push('B');
+                                    break;
+                                case '2':
+                                    answers.push('C');
+                                    break;
+                                case '3':
+                                    answers.push('D');
+                                    break;
+                            }
+                        }
+
+
+                        sb +="<span>正确答案：</span><span id='perfectanswer'style='background:blanchedalmond'>"+answers.join(',')+"</span><br>";
+                        sb +="<span >你的答案：</span><span id='youranswer' style='background: #ff0000'>"+answersheet[Application.answerorder].answer+"</span>";
+                        sb +="</div></div>";
+                        Application.answerorder+=1;
+                    }
+                    break;
+
+                case 4:
+
+                    for(var item in questionobj.essayQuestions){
+
+                        sb += "<div class=\"question-title\">";
+                        sb += "<div class=\"question-title-icon\"></div>"
+                        sb += "<span  class=\"question-no reportnum\"></span>";
+                        sb += "<span class=\"question-type\" style=\"display: none;\">"
+                        sb +="shortanswer</span>";
+                        sb +="<span class=\"knowledge-point-id\" style=\"display: none;\">"+questionobj.essayQuestions[item].score+"</span>";
+                        sb +="<span class=\"question-type-id\" style=\"display: none;\">"+questionobj.essayQuestions[item].score+"</span>";
+                        sb +="<span>[简答题]</span>";
+                        sb +="<span class=\"question-point-content\">";
+                        sb +="<span>(</span><span class=\"question-point\">"+questionobj.essayQuestions[item].score+"</span><span>分)</span>";
+                        sb +="</span>";
+                        //sb.append("<span>(</span><span class=\"question-point\">").append(pointStrFormat(questionQueryResult.getQuestionPoint())).append("</span><span>分)</span>");
+                        //
+                        sb +="</div>";
+                        sb +="<form class=\"question-body  \">";
+                        sb +="<p class=\"question-body-text\">"+questionobj.essayQuestions[item].text;
+
+                        sb +="</p><div class='question qt-shortanswer'>";
+                        sb +="<span class=\"question-id\" style=\"display:none;\">"+(questionobj.ord-1) +"</span>";
+                        sb +="<textarea class=\"question-textarea \">"+questionobj.essayQuestions[item].answer+"</textarea></div>";
+                        sb +="</form>";
+
+                        //sb +="<span>正确答案：</span><span id='perfectanswer'>"+questionobj.essayQuestions[item].answers+"</span><br>";
+                        sb +="<span>你的答案：</span><span id='youranswer' style='background: #ff0000'>"+answersheet[ Application.answerorder].answer+"</span>";
+                        sb +="</div></div>";
+                        Application.answerorder+=1
+                    }
+
+                    break;
+            }
+
+
+            sb += "</li>";
+            return sb;
+        }
+
+
+
+//模拟考试，正式考试选择题
+
+        function getChoiceQuestionsStringHtml(type, questionobj) {
+            var sb = '';
+
+            switch (type) {
+                case 1:
+                    sb += "<li class=\"question qt-singlechoice\">";
+                    break;
+                case 2:
+                    sb += "<li class=\"question qt-multiplechoice\">";
+                    break;
+
+            }
+
+
+            switch (type) {
+                case 1:
+                    sb += "<div class=\"question-title\">";
+                    sb += "<div class=\"question-title-icon\"></div>"
+                    sb += "<span class=\"question-no\"></span>";
+                    sb += "<span class=\"question-type\" style=\"display: none;\">"
+                    sb += "singlechoice</span>";
+                    sb += "<span class=\"knowledge-point-id\" style=\"display: none;\">" + questionobj.order_no + "</span>";
+                    sb += "<span class=\"question-type-id\" style=\"display: none;\">" + questionobj.suite_id + "</span>";
+                    sb += "<span>[单选题]</span>";
+                    sb += "<span class=\"question-point-content\">";
+                    sb += "<span>(</span><span class=\"question-point\">" + 1 + "</span><span>分)</span>";
+                    sb += "</span>";
+                    sb += "<span class=\"question-id\" style=\"display:none;\">" + (questionobj.order_no-1) + "</span>";
+
+                    sb += "</div>";
+                    sb += "<form class=\"question-body\">";
+                    sb += "<p class=\"question-body-text\">" + questionobj.text;
+                    sb += "</p>";
+                    sb += "<ul class=\"question-opt-list\">";
+                    sb += "<li class=\"question-list-item\">";
+
+                    sb += "<input type=\"radio\" value=\"A\" name=\"question-radio1\" class=\"question-input\">"
+                    sb += "<span class=\"question-li-text\">";
+                    sb += 'A' + ": " + questionobj.a + "</span></li></ul>";
+
+                    sb += "<ul class=\"question-opt-list\">";
+                    sb += "<li class=\"question-list-item\">";
+
+                    sb += "<input type=\"radio\" value=\"B\" name=\"question-radio1\" class=\"question-input\">"
+                    sb += "<span class=\"question-li-text\">";
+                    sb += 'B' + ": " + questionobj.b + "</span></li></ul>";
+
+
+                    sb += "<ul class=\"question-opt-list\">";
+                    sb += "<li class=\"question-list-item\">";
+
+                    sb += "<input type=\"radio\" value=\"C\" name=\"question-radio1\" class=\"question-input\">"
+                    sb += "<span class=\"question-li-text\">";
+                    sb += 'C' + ": " + questionobj.c + "</span></li></ul>";
+
+                    sb += "<ul class=\"question-opt-list\">";
+                    sb += "<li class=\"question-list-item\">";
+
+                    sb += "<input type=\"radio\" value=\"D\" name=\"question-radio1\" class=\"question-input\">"
+                    sb += "<span class=\"question-li-text\">";
+                    sb += 'D' + ": " + questionobj.d + "</span></li></ul>";
+
+                    sb += "</form>"
+
+                    break;
+                case 2:
+                    sb += "<div class=\"question-title\">";
+                    sb += "<div class=\"question-title-icon\"></div>"
+                    sb += "<span class=\"question-no\"></span>";
+                    sb += "<span class=\"question-type\" style=\"display: none;\">"
+                    sb += "multiplechoice</span>";
+                    sb += "<span class=\"knowledge-point-id\" style=\"display: none;\">" + questionobj.order_no + "</span>";
+                    sb += "<span class=\"question-type-id\" style=\"display: none;\">" + questionobj.suite_id + "</span>";
+                    sb += "<span>[多选题]</span>";
+                    sb += "<span class=\"question-point-content\">";
+                    sb += "<span>(</span><span class=\"question-point\">" + 1 + "</span><span>分)</span>";
+                    sb += "</span>";
+                    sb += "<span class=\"question-id\" style=\"display:none;\">" + (questionobj.order_no-1) + "</span>";
+
+                    sb += "</div>";
+                    sb += "<form class=\"question-body\">";
+                    sb += "<p class=\"question-body-text\">" + questionobj.text;
+                    sb += "</p>";
+                    sb += "<ul class=\"question-opt-list\">";
+                    sb += "<li class=\"question-list-item\">";
+
+                    sb += "<input type=\"checkbox\" value=\"A\" name=\"question-checkbox1\" class=\"question-input\">"
+                    sb += "<span class=\"question-li-text\">";
+                    sb += 'A' + ": " + questionobj.a + "</span></li></ul>";
+
+                    sb += "<ul class=\"question-opt-list\">";
+                    sb += "<li class=\"question-list-item\">";
+
+                    sb += "<input type=\"checkbox\" value=\"B\" name=\"question-checkbox1\" class=\"question-input\">"
+                    sb += "<span class=\"question-li-text\">";
+                    sb += 'B' + ": " + questionobj.b + "</span></li></ul>";
+
+
+                    sb += "<ul class=\"question-opt-list\">";
+                    sb += "<li class=\"question-list-item\">";
+
+                    sb += "<input type=\"checkbox\" value=\"C\" name=\"question-checkbox1\" class=\"question-input\">"
+                    sb += "<span class=\"question-li-text\">";
+                    sb += 'C' + ": " + questionobj.c + "</span></li></ul>";
+
+                    sb += "<ul class=\"question-opt-list\">";
+                    sb += "<li class=\"question-list-item\">";
+
+                    sb += "<input type=\"checkbox\" value=\"D\" name=\"question-checkbox1\" class=\"question-input\">"
+                    sb += "<span class=\"question-li-text\">";
+                    sb += 'D' + ": " + questionobj.d + "</span></li></ul>";
+
+                    sb += "</form>"
+                    break;
+
+            }
+            sb += "</li>";
+            return sb;
+        }
+
+
+        function getChoiceQuestionsStringHtmlReport(type, questionobj,answersheet) {
+            var sb = '';
+
+            switch (type) {
+                case 1:
+                    sb += "<li class=\"question qt-singlechoice\">";
+                    break;
+                case 2:
+                    sb += "<li class=\"question qt-multiplechoice\">";
+                    break;
+
+            }
+
+
+            switch (type) {
+                case 1:
+                    sb += "<div class=\"question-title\">";
+                    sb += "<div class=\"question-title-icon\"></div>"
+                    sb += "<span class=\"question-no reportnum\"></span>";
+                    sb += "<span class=\"question-type\" style=\"display: none;\">"
+                    sb += "singlechoice</span>";
+                    sb += "<span class=\"knowledge-point-id\" style=\"display: none;\">" + questionobj.order_no + "</span>";
+                    sb += "<span class=\"question-type-id\" style=\"display: none;\">" + questionobj.suite_id + "</span>";
+                    sb += "<span>[单选题]</span>";
+                    sb += "<span class=\"question-point-content\">";
+                    sb += "<span>(</span><span class=\"question-point\">" + 1 + "</span><span>分)</span>";
+                    sb += "</span>";
+                    sb += "<span class=\"question-id\" style=\"display:none;\">" + (questionobj.order_no-1) + "</span>";
+
+                    sb += "</div>";
+                    sb += "<form class=\"question-body\">";
+                    sb += "<p class=\"question-body-text\">" + questionobj.text;
+                    sb += "</p>";
+                    sb += "<ul class=\"question-opt-list\">";
+                    sb += "<li class=\"question-list-item\">";
+
+                    sb += "<input type=\"radio\" value=\"A\" name=\"question-radio1\" class=\"question-input\">"
+                    sb += "<span class=\"question-li-text\">";
+                    sb += 'A' + ": " + questionobj.a + "</span></li></ul>";
+
+                    sb += "<ul class=\"question-opt-list\">";
+                    sb += "<li class=\"question-list-item\">";
+
+                    sb += "<input type=\"radio\" value=\"B\" name=\"question-radio1\" class=\"question-input\">"
+                    sb += "<span class=\"question-li-text\">";
+                    sb += 'B' + ": " + questionobj.b + "</span></li></ul>";
+
+
+                    sb += "<ul class=\"question-opt-list\">";
+                    sb += "<li class=\"question-list-item\">";
+
+                    sb += "<input type=\"radio\" value=\"C\" name=\"question-radio1\" class=\"question-input\">"
+                    sb += "<span class=\"question-li-text\">";
+                    sb += 'C' + ": " + questionobj.c + "</span></li></ul>";
+
+                    sb += "<ul class=\"question-opt-list\">";
+                    sb += "<li class=\"question-list-item\">";
+
+                    sb += "<input type=\"radio\" value=\"D\" name=\"question-radio1\" class=\"question-input\">"
+                    sb += "<span class=\"question-li-text\">";
+                    sb += 'D' + ": " + questionobj.d + "</span></li></ul>";
+
+                    sb += "</form>"
+
+                    break;
+                case 2:
+                    sb += "<div class=\"question-title\">";
+                    sb += "<div class=\"question-title-icon\"></div>"
+                    sb += "<span class=\"question-no reportnum\"></span>";
+                    sb += "<span class=\"question-type\" style=\"display: none;\">"
+                    sb += "multiplechoice</span>";
+                    sb += "<span class=\"knowledge-point-id\" style=\"display: none;\">" + questionobj.order_no + "</span>";
+                    sb += "<span class=\"question-type-id\" style=\"display: none;\">" + questionobj.suite_id + "</span>";
+                    sb += "<span>[多选题]</span>";
+                    sb += "<span class=\"question-point-content\">";
+                    sb += "<span>(</span><span class=\"question-point\">" + 1 + "</span><span>分)</span>";
+                    sb += "</span>";
+                    sb += "<span class=\"question-id\" style=\"display:none;\">" + (questionobj.order_no-1) + "</span>";
+
+                    sb += "</div>";
+                    sb += "<form class=\"question-body\">";
+                    sb += "<p class=\"question-body-text\">" + questionobj.text;
+                    sb += "</p>";
+                    sb += "<ul class=\"question-opt-list\">";
+                    sb += "<li class=\"question-list-item\">";
+
+                    sb += "<input type=\"checkbox\" value=\"A\" name=\"question-checkbox1\" class=\"question-input\">"
+                    sb += "<span class=\"question-li-text\">";
+                    sb += 'A' + ": " + questionobj.a + "</span></li></ul>";
+
+                    sb += "<ul class=\"question-opt-list\">";
+                    sb += "<li class=\"question-list-item\">";
+
+                    sb += "<input type=\"checkbox\" value=\"B\" name=\"question-checkbox1\" class=\"question-input\">"
+                    sb += "<span class=\"question-li-text\">";
+                    sb += 'B' + ": " + questionobj.b + "</span></li></ul>";
+
+
+                    sb += "<ul class=\"question-opt-list\">";
+                    sb += "<li class=\"question-list-item\">";
+
+                    sb += "<input type=\"checkbox\" value=\"C\" name=\"question-checkbox1\" class=\"question-input\">"
+                    sb += "<span class=\"question-li-text\">";
+                    sb += 'C' + ": " + questionobj.c + "</span></li></ul>";
+
+                    sb += "<ul class=\"question-opt-list\">";
+                    sb += "<li class=\"question-list-item\">";
+
+                    sb += "<input type=\"checkbox\" value=\"D\" name=\"question-checkbox1\" class=\"question-input\">"
+                    sb += "<span class=\"question-li-text\">";
+                    sb += 'D' + ": " + questionobj.d + "</span></li></ul>";
+
+                    sb += "</form>"
+                    break;
+
+            }
+            sb +="<div class=\"answer-desc\">";
+            sb +="<div class=\"answer-desc-summary\">";
+
+
+            var answers=[];
+            for(var key in questionobj.answer.split(',')){
+                switch (questionobj.answer.split(',')[key]){
+                    case '0':
+                        answers.push('A');
+                        break
+                    case '1':
+                        answers.push('B');
+                        break;
+                    case '2':
+                        answers.push('C');
+                        break;
+                    case '3':
+                        answers.push('D');
+                        break;
+                }
+            }
+
+            sb +="<span>正确答案：</span><span id='perfectanswer'>"+answers.join(',')+"</span><br>";
+            sb +="<span>你的答案：</span><span id='youranswer'>"+questionobj.sub_answer+"</span>";
+            sb +="</div></div>";
+            return sb;
+        }
+
+
+
+
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+﻿#main-nav {
+    margin-left: 1px;
+}
+
+#main-nav.nav-tabs.nav-stacked > li > a {
+    padding: 10px 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #428bca;
+    background: #E9E9E9;
+    background: -moz-linear-gradient(top, #FAFAFA 0%, #E9E9E9 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FAFAFA), color-stop(100%,#E9E9E9));
+    background: -webkit-linear-gradient(top, #FAFAFA 0%,#E9E9E9 100%);
+    background: -o-linear-gradient(top, #FAFAFA 0%,#E9E9E9 100%);
+    background: -ms-linear-gradient(top, #FAFAFA 0%,#E9E9E9 100%);
+    background: linear-gradient(top, #FAFAFA 0%,#E9E9E9 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FAFAFA', endColorstr='#E9E9E9');
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#FAFAFA', endColorstr='#E9E9E9')";
+    border: 1px solid #D5D5D5;
+    border-radius: 4px;
+}
+
+#main-nav.nav-tabs.nav-stacked > li > a > span {
+    color: rgba(69, 85, 232, 0.95);
+}
+
+#main-nav.nav-tabs.nav-stacked > li.active > a, #main-nav.nav-tabs.nav-stacked > li > a:hover {
+    color: #FFF;
+    background: #428bca;
+    background: -moz-linear-gradient(top, #428bca 0%, #428bca 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#428bca), color-stop(100%,#428bca));
+    background: -webkit-linear-gradient(top, #428bca 0%,#428bca 100%);
+    background: -o-linear-gradient(top, #428bca 0%,#428bca 100%);
+    background: -ms-linear-gradient(top, #428bca 0%,#428bca 100%);
+    background: linear-gradient(top, #428bca 0%,#428bca 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4A515B', endColorstr='#3C4049');
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#4A515B', endColorstr='#3C4049')";
+    border-color: #2B2E33;
+}
+
+#main-nav.nav-tabs.nav-stacked > li.active > a, #main-nav.nav-tabs.nav-stacked > li > a:hover > span {
+    color: #FFF;
+}
+
+#main-nav.nav-tabs.nav-stacked > li {
+    margin-bottom: 4px;
+}
+
+.navbar-brand.logo{
+    background: url('../img/title1.jpg') no-repeat;
+    display: inline-block;
+    vertical-align: middle;
+    padding-left: 200px;
+    color: #fff;
+}
+
+.navbar-brand.system{
+    padding-bottom: 0px;
+}
+
+.navbar>.container .navbar-brand, .navbar>.container-fluid .navbar-brand  {
+    margin-left: 15px;
+}

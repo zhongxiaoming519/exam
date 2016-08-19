@@ -1,0 +1,200 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <link href="../js/lib/bootstrap-3.3.0-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../js/lib/jquery1.11.1/select2/select2.css" rel="stylesheet" type="text/css"/>
+    <link href="../js/lib/popUpBox/inside.css" rel="stylesheet" type="text/css"/>
+    <link href="../js/lib/jquery1.11.1/select2/select2-bootstrap.css" rel="stylesheet" type="text/css"/>
+    <link href="../js/lib/bootstrap-3.3.0-dist/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../js/lib/bootstrap-table-dist/bootstrap-table.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../js/lib/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/main.css">
+</head>
+<body>
+<div>
+    <div class="container">
+        <table id="examrecord"></table>
+        <table id="finalexamrecord"></table>
+    </div>
+</div>
+<!--[if lt IE9]>
+<script src="../js/lib/html5/respond.min.js"></script>
+<script src="../js/lib/html5/html5.js"></script>
+<script src="../js/lib/html5/json2.js"></script>
+<![endif]-->
+
+<script src="../js/lib/jquery1.11.1/jquery-1.11.1.js"></script>
+<script src="../js/lib/jquery1.11.1/jquery.cookie.js" type="text/javascript"></script>
+<script src="../js/lib/bootstrap-3.3.0-dist/js/bootstrap.js"></script>
+<script src="../js/lib/bootstrap-table-dist/bootstrap-table.min.js"></script>
+
+<script src="../js/lib/bootstrap-table-dist/locale/bootstrap-table-zh-CN.min.js"></script>
+
+<script src="../js/lib/bootstrap-datepicker/js/bootstrap-datepicker.js" type="text/javascript"></script>
+<script src="../js/lib/bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-CN.js" type="text/javascript"></script>
+<script type="text/javascript" src="../js/lib/jquery1.11.1/select2/select2.js"></script>
+<script type="text/javascript" src="../js/lib/jquery1.11.1/select2/select2_locale_zh-CN.js"></script>
+<!-- 提示框 JS -->
+<script src="../js/lib/popUpBox/inside.js" type="text/javascript"></script>
+<script src="../js/lib/flvplayer/swfobject.js"></script>
+<script src="../js/main/Application.js"></script>
+<script src="../js/main/Application.Util.js"></script>
+
+
+<script>
+
+    $(document).ready(function(){
+        initModuleSelectList();
+        initFinalModuleSelectList();
+        Application.Util.ajaxConstruct(Application.serverHost + "/student/getStudentTestRecordList",'POST','parameter='+JSON.stringify({userId: parseInt($.cookie('uid')),cate:$.cookie('cate')}),'json',function(data){
+            if(data.errcode == 0){
+
+                $('#examrecord').bootstrapTable('load',data.data);
+
+                G.ui.tips.suc('查询成功！')
+            }else{
+                G.ui.tips.err('查询失败！')
+            }
+
+        },function(data){
+            G.ui.tips.err('查询失败！')
+        },'application/x-www-form-urlencoded');
+
+
+        Application.Util.ajaxConstruct(Application.serverHost + "/student/getStudentFinalTestRecordList",'POST','parameter='+JSON.stringify({userId: parseInt($.cookie('uid'))}),'json',function(data){
+            if(data.errcode == 0){
+
+                $('#finalexamrecord').bootstrapTable('load',data.data);
+
+                G.ui.tips.suc('查询成功！')
+            }else{
+                G.ui.tips.err('查询失败！')
+            }
+
+        },function(data){
+            G.ui.tips.err('查询失败！')
+        },'application/x-www-form-urlencoded');
+
+
+    })
+    /***
+     * 初始化模块列表
+     */
+    function initModuleSelectList(){
+        $('#examrecord').bootstrapTable({
+            height: (document.documentElement.clientHeight || document.body.clientHeight) - 200,
+            classes:"table table-hover table-condensed",
+            striped:true,
+            toolbar:'#rawdata-toolbar',
+            pagination:true,
+            showColumns: true,
+            showRefresh:true,
+            showToggle:true,
+            pageSize:20,
+            search:true,
+            columns: [
+
+                {
+                    field:'proTitle',
+                    align:'center',
+                    title:'专业'
+
+                }
+                , {
+                    field: 'courseTitle',
+                    align: 'center',
+                    title: '课程'
+                },
+
+                {
+                    field: 'chapterTitle',
+                    align: 'center',
+                    title: '章节'
+                },
+                {
+                    field: 'no',
+                    align: 'center',
+                    title: '试卷'
+                },
+                {
+                    field: 'time_used',
+                    align: 'center',
+                    title: '用时'
+                },
+                {
+                    field: 'score',
+                    align: 'center',
+                    title: '分数',
+                    formatter:function(value, row){
+                        return parseInt(value)
+                    }
+                }
+
+                ,{
+                    field: 'add_date',
+                    align: 'center',
+                    title: '考试时间',
+
+                    formatter:function(value, row){
+                        return new Date( parseInt(value.toString().length==10?value+'000':value)).Format('yyyy-MM-dd')
+                    }
+
+                }]
+        });
+    }
+    /***
+     * 初始化结业考试模块列表
+     */
+    function initFinalModuleSelectList(){
+        $('#finalexamrecord').bootstrapTable({
+            height: (document.documentElement.clientHeight || document.body.clientHeight) - 200,
+            classes:"table table-hover table-condensed",
+            striped:true,
+            toolbar:'#rawdata-toolbar',
+            pagination:true,
+            showColumns: true,
+            showRefresh:true,
+            showToggle:true,
+            pageSize:20,
+            search:true,
+            columns: [
+
+                {
+                    field:'proTitle',
+                    align:'center',
+                    title:'专业'
+
+                }
+                , {
+                    field: 'type',
+                    align: 'center',
+                    title: '类型',
+                    formatter:function(value, row){
+                        return "结业考试"
+                    }
+                },
+
+                {
+                    field: 'score',
+                    align: 'center',
+                    title: '分数',
+                    formatter:function(value, row){
+                        return parseInt(value)
+                    }
+                }
+
+                ,{
+                    field: 'add_time',
+                    align: 'center',
+                    title: '考试时间'
+
+                }]
+        });
+    }
+
+</script>
+</body>
+</html>

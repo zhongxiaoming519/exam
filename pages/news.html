@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <!--IE 浏览器以最新版本打开 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <!-- 360浏览器默认以极速模式打开 -->
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>全军心理咨询师职业培训</title>
+    <title></title>
+    <link href="../js/lib/bootstrap-3.3.0-dist/css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="../js/lib/popUpBox/inside.css" rel="stylesheet" type="text/css" />
+    <!--[if lt IE 9]>
+    <script src="../js/lib/html5/respond.min.js"></script>
+    <script src="../js/lib/html5/html5.js"></script>
+    <script src="../js/lib/html5/json2.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <div class="container" id="container">
+
+    </div>
+    <script src="../js/main/Application.js"></script>
+    <script src="../js/main/Application.Util.js"></script>
+    <script src="../js/lib/jquery1.11.1/jquery-1.11.1.js" type="text/javascript"></script>
+    <!-- jquery 插件 -->
+    <script src="../js/lib/jquery1.11.1/jquery.cookie.js" type="text/javascript"></script>
+    <script src="../js/lib/jquery1.11.1/jquery.validate.js" type="text/javascript"></script>
+    <!-- 提示框 JS -->
+    <script src="../js/lib/popUpBox/inside.js" type="text/javascript"></script>
+    <script>
+        $(document).ready(function(){
+            var id =GetQueryString('id');
+            getNews(id);
+        });
+
+
+        function getNews(id){
+            para = 'parameter=' + JSON.stringify({
+                'pageno': 1,
+                'pageSize': 50,
+                id:id
+            })
+
+            Application.Util.ajaxConstruct(Application.serverHost + "/news/getNewsList",'POST',para,'json',function(data){
+                if(data.errcode == 0){
+                    $('#container').html(data.data[0].text);
+                }else{
+                    G.ui.tips.err('查询失败！！');
+                }
+
+            },function(data){
+                G.ui.tips.err('查询失败！！');
+            },'application/x-www-form-urlencoded');
+        }
+
+        function GetQueryString(name)
+        {
+            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if(r!=null)return  unescape(r[2]); return null;
+        }
+    </script>
+</body>
+</html>

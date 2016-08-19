@@ -1,0 +1,2371 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <title></title>
+    <link href="../js/lib/bootstrap-3.3.0-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../js/lib/jquery1.11.1/select2/select2.css" rel="stylesheet" type="text/css"/>
+    <link href="../js/lib/jquery1.11.1/select2/select2-bootstrap.css" rel="stylesheet"
+          type="text/css"/>
+    <link href="../js/lib/popUpBox/inside.css" rel="stylesheet" type="text/css"/>
+    <link href="../js/lib/bootstrap-3.3.0-dist/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../js/lib/bootstrap-table-dist/bootstrap-table.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../js/lib/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="../css/font-awesome.css" />
+    <link rel="stylesheet" href="../js/lib/summernote/summernote.css"/>
+
+    <style>
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            min-width: 800px;
+            /*min-height: 768px;*/
+            margin: 0;
+            padding: 0;
+            font-family: "Helvetica Neue", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", "黑体", Arial, sans-serif;
+        }
+
+        body {
+            background: none repeat scroll 0 0;
+        }
+
+        #main-nav {
+            margin-left: 1px;
+        }
+
+        #main-nav.nav-tabs.nav-stacked > li > a {
+            padding: 10px 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #4A515B;
+            background: #E9E9E9;
+            background: -moz-linear-gradient(top, #FAFAFA 0%, #E9E9E9 100%);
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #FAFAFA), color-stop(100%, #E9E9E9));
+            background: -webkit-linear-gradient(top, #FAFAFA 0%, #E9E9E9 100%);
+            background: -o-linear-gradient(top, #FAFAFA 0%, #E9E9E9 100%);
+            background: -ms-linear-gradient(top, #FAFAFA 0%, #E9E9E9 100%);
+            background: linear-gradient(top, #FAFAFA 0%, #E9E9E9 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FAFAFA', endColorstr='#E9E9E9');
+            -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#FAFAFA', endColorstr='#E9E9E9')";
+            border: 1px solid #D5D5D5;
+            border-radius: 4px;
+        }
+
+        #main-nav.nav-tabs.nav-stacked > li > a > span {
+            color: #4A515B;
+        }
+
+        #main-nav.nav-tabs.nav-stacked > li.active > a, #main-nav.nav-tabs.nav-stacked > li > a:hover {
+            color: #FFF;
+            background: #3C4049;
+            background: -moz-linear-gradient(top, #4A515B 0%, #3C4049 100%);
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #4A515B), color-stop(100%, #3C4049));
+            background: -webkit-linear-gradient(top, #4A515B 0%, #3C4049 100%);
+            background: -o-linear-gradient(top, #4A515B 0%, #3C4049 100%);
+            background: -ms-linear-gradient(top, #4A515B 0%, #3C4049 100%);
+            background: linear-gradient(top, #4A515B 0%, #3C4049 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4A515B', endColorstr='#3C4049');
+            -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#4A515B', endColorstr='#3C4049')";
+            border-color: #2B2E33;
+        }
+
+        #main-nav.nav-tabs.nav-stacked > li.active > a, #main-nav.nav-tabs.nav-stacked > li > a:hover > span {
+            color: #FFF;
+        }
+
+        #main-nav.nav-tabs.nav-stacked > li {
+            margin-bottom: 4px;
+        }
+
+        /*定义二级菜单样式*/
+        .secondmenu a {
+            font-size: 10px;
+            color: #4A515B;
+            text-align: center;
+        }
+
+        .navbar-static-top {
+            background-color: #212121;
+            margin-bottom: 5px;
+        }
+
+        .navbar-brand {
+            background: url('') no-repeat 10px 8px;
+            display: inline-block;
+            vertical-align: middle;
+            padding-left: 50px;
+            color: #fff;
+        }
+
+        .secondmenu a {
+            font-size: 12px;
+            color: #4A515B;
+            text-align: center;
+        }
+
+        .secondmenu li.active {
+            background-color: #eee;
+            border-color: #428bca;
+        }
+
+        .panel.panel-default > .btn.btn-primary.btn-sm {
+            margin-top: 10px;
+            margin-left: 10px;
+            margin-bottom: 10px;
+            margin-right: 20px;
+        }
+
+        #menutree > .panel.panel-info {
+            border-color: #F5F5F5
+        }
+
+        #menutree > .panel.panel-info > .panel-body {
+            padding-left: 250px;
+        }
+
+        #courseeditordiv {overflow:scroll; max-height:300px}
+
+    </style>
+
+</head>
+
+<body>
+<div class="navbar navbar-duomi navbar-static-top" role="navigation">
+
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#" id="logo">配置管理系统
+            </a>
+        </div>
+        <div class="collapse navbar-collapse" id="nav-button" style="padding-right: 50px">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a id="returnBack" href="#" data-toggle="modal" data-target="#passwordmodal">
+                        <i class="glyphicon glyphicon-chevron-left"></i>修改密码
+                    </a>
+                </li>
+                <li>
+                    <a style="cursor:pointer" id="login-out" onclick="window.location.replace('login.html')">
+                        <i class="glyphicon glyphicon-log-out"></i>退出
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="col-md-2">
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <ul id="main-nav" class="nav nav-tabs nav-stacked" style="">
+
+                    </ul>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="col-md-10  col-container tab-content">
+
+            <div id="userinfopanel" class="tab-pane active">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">用户信息</h3>
+                    </div>
+                    <div class="panel-body">
+
+
+                        <div >
+                            <div class="well">
+                                您好<a href="#" id="name"></a>，欢迎来到后台管理系统。您的角色是：<a href="#" id="role"></a>，下面是您的权限：
+                            </div>
+                        </div>
+                        <div>
+                            <ul id="quanxianliebiao">
+
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!--用户管理-->
+            <div id="manageuser" class="tab-pane">
+
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">用户管理</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="btn-group btn-group-justified" role="group" id="dataListTab">
+                        </div>
+                        <div class="col-xs-4">
+                            <button id="manageaddbutton" class="btn btn-primary btn-sm" data-toggle="modal"
+                                    onclick="newPersonInfo()" style="margin-top: 10px">
+                                新增
+                            </button>
+                            <button id="managedeletebutton" class="btn btn-primary btn-sm" onclick="clickDeleteUser()"
+                                    style="margin-top: 10px">
+                                删除
+                            </button>
+                        </div>
+                        <table id='manageuserlist' data-detail-formatter="detailFormatter"></table>
+                    </div>
+                </div>
+
+
+            </div>
+            <!--用户组管理-->
+            <div id="managegroup" class="tab-pane">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">用户组管理</h3>
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="col-xs-4">
+                            <a id="managegroupaddbutton" operater='delete' class="btn btn-primary btn-sm"
+                               href="#menutreediv" data-toggle="tab" style="margin-top: 10px">
+                                新增
+                            </a>
+                            <!--<button id="managegroupdeletebutton" class="btn btn-primary btn-sm" onclick="deletegroup()"
+                                    style="margin-top: 10px">
+                                删除
+                            </button>-->
+                        </div>
+
+                        <table id='managerolelist'>
+
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+
+            <!--用户信息编辑-->
+            <div class="panel panel-default modal fade" id="div_baseinfopanel" role="dialog">
+
+                <div class="modal-dialog" style="width: 600px;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span-->
+                                    <!--aria-hidden="true">&times;</span></button>-->
+                            <h4 class="modal-title">用户信息</h4>
+                        </div>
+                        <table id="basetable" class="table table-condensed">
+                            <tbody>
+                            <tr>
+                                <td class="active" width="20%">是否激活</td>
+                                <td width="30%">
+                                    <input type="checkbox" class="personalinfo" value="1" id="userboollive"/> 是
+                                </td>
+                                <td class="active">权限组</td>
+                                <td><input type="hidden" class="form-control input-sm personalinfo" id="rightgroup">
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td class="active">用户名<span style="color: #ff0000;font-size: x-large">*</span></td>
+                                <td><input id="username" type="text" class="form-control input-sm personalinfo"></td>
+                                <td class="active">真实姓名</td>
+                                <td><input id="realname" type="text" class="form-control input-sm personalinfo"></td>
+                            </tr>
+                            <tr>
+                                <td class="active">密码(不改请留空)</td>
+                                <td><input  id="password" type="text" class="form-control input-sm personalinfo"></td>
+                                <td class="active">确认密码</td>
+                                <td><input  id="confirmpassword" type="text" class="form-control input-sm personalinfo">
+                                </td>
+                            </tr>
+
+                            <tr style="display: none">
+                                <td class="active">密码问题<span style="color: #ff0000;font-size: x-large">*</span></td>
+                                <td><input id="passwordquestion" type="text" class="form-control input-sm personalinfo">
+                                </td>
+                                <td class="active">密码答案<span style="color: #ff0000;font-size: x-large">*</span></td>
+                                <td><input id="passwordanswer" type="text" class="form-control input-sm personalinfo">
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="active">证件号码</td>
+                                <td><input id="idnumber" type="text" class="form-control input-sm personalinfo"></td>
+                                <td class="active">性别</td>
+                                <td><input type="hidden" class="form-control input-sm personalinfo" id="gender"></td>
+                            </tr>
+                            <tr>
+                                <td class="active">电子邮箱</td>
+                                <td><input id="email" type="text" class="form-control input-sm personalinfo"></td>
+                                <td class="active">出生日期</td>
+                                <td><input class="form-control input-sm datePicker personalinfo" id="birthday" value=""
+                                           type="text"/></td>
+                            </tr>
+                            <tr>
+                                <td class="active">固定电话</td>
+                                <td><input id="phone" type="text" class="form-control input-sm personalinfo"></td>
+                                <td class="active">手机</td>
+                                <td><input class="form-control input-sm personalinfo" id="cellphone"></td>
+                            </tr>
+                            <tr>
+                                <td class="active">所在省</td>
+                                <td><input id="pravince" type="text" class="form-control input-sm personalinfo"></td>
+                                <td class="active">单位编码</td>
+                                <td><input class="form-control input-sm personalinfo" id="unitnum"></td>
+                            </tr>
+                            <tr>
+                                <td class="active">邮寄地址</td>
+                                <td><input id="address" type="text" class="form-control input-sm personalinfo"></td>
+                                <td class="active">邮编</td>
+                                <td><input class="form-control input-sm personalinfo" id="postnum"></td>
+                            </tr>
+
+                            <tr>
+                                <td class="active">备注信息</td>
+                                <td><input id="remark" type="text" class="form-control input-sm personalinfo"></td>
+                                <td class="active">添加时间<span style="color: #ff0000;font-size: x-large">*</span></td>
+                                <td><input  class="form-control input-sm  datePicker personalinfo" id="adddate"
+                                           value="" type="text"/></td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                        <div class="row">
+                            <div class="col-lg-2">开通专业</div>
+                            <div id="specialpanel" class="col-lg-10"></div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <div class="row">
+                                <button type="button" class="btn btn-primary" style="position:relative;right: 270px"
+                                        onclick="submitUserInfo();">确 定
+                                </button>
+                                <button type="button" class="btn btn-default" style="position: relative;right: 250px"
+                                        onclick="closeModal();">关 闭
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!--模块结构树-->
+            <div id='menutreediv' class="tab-pane container-fluid">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">用户组管理</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">名称</label>
+
+                                <div class="col-sm-5">
+                                    <input class="form-control" id="rolename">
+                                </div>
+                            </div>
+
+                        </form>
+
+
+                        <div id='menutree'></div>
+                        <div class="form-group">
+                            <a type="button" class="btn btn-primary" style="position: relative;left: 200px"
+                               onclick="submitNewRole()">提交</a>
+                            <button type="button" class="btn btn-default" style="position: relative;left: 220px"
+                                    onclick="resettree()">重置
+                            </button>
+                            <a id="restoremanagegroup" type="button" class="btn btn-default"
+                               style="position: relative;left: 240px" href="#managegroup" data-toggle="tab">返回</a>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!--专业管理-->
+            <div id='managespecial' class="tab-pane">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">专业管理</h3>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="col-xs-4">
+                            <a href="#managespecialeditor" onclick="changeSpecialState()" id="specialaddbutton" data-toggle="tab"
+                               style="margin-top: 10px" class="btn btn-primary btn-sm">
+                                新增
+                            </a>
+                            <button id="specialdeletebutton" style="margin-top: 10px" class="btn btn-primary btn-sm"
+                                    onclick="deleteSpecial()">
+                                删除
+                            </button>
+                        </div>
+
+
+                        <table id='managespeciallist'>
+
+                        </table>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+            <!--专业管理编辑面板-->
+            <div id="managespecialeditor" class="tab-pane panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">专业管理</h3>
+                </div>
+                <div class="panel-body">
+
+
+                    <div class="form-group" style="margin-top: 15px;height: 20px">
+                        <label class="col-md-2 ">名称:</label>
+
+                        <div class="col-md-10">
+                            <input type="text" operate='delete' id="newspecialname" style="width: 60%">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 15px;height: 20px">
+                        <label class="col-md-2 ">是否有效:</label>
+
+                        <div class="col-md-10">
+                            <input type="checkbox" id="nameboolvalid">
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 15px;height: 20px">
+                        <a type="button" class="btn btn-primary btn-sm  control-label" onclick="addSpecial()"
+                           style="margin-left: 100px">确 定</a>
+                        <button type="button" class="btn btn-default btn-sm  control-label" style="margin-left: 10px"
+                                onclick="restSpecialEditor()">重 置
+                        </button>
+                        <a id="restoremanagespecial" href="#managespecial" type="button" data-toggle="tab"
+                           class="btn btn-default  btn-sm  control-label" style="margin-left: 10px">返 回</a>
+                    </div>
+
+                </div>
+
+
+            </div>
+            <!--资讯管理-->
+            <div id='manageinfo' class="tab-pane">
+                <div class="btn-group btn-group-justified"  style="width: 300px;margin-top: 10px" id="selectinfotab">
+                    <a href="#" class="btn btn-success" onclick="getNewsList(-1)" data-toggle="tab">全部信息</a>
+                    <a href="#" class="btn btn-default" onclick="getNewsList(1)" data-toggle="tab">发布</a>
+                    <a href="#" class="btn btn-default" onclick="getNewsList(2)" data-toggle="tab">不发布</a>
+                </div>
+                <div class="col-xs-4">
+                    <a href="#infopanel" onclick=" resetnewsedit()" data-toggle="tab" id="newsaddbutton" class="btn btn-primary btn-sm" style="margin-top: 10px"
+                            >
+                        新增
+                    </a>
+                    <button id="newsdeletebutton" onclick="deleteNews()" class="btn btn-primary btn-sm" style="margin-top: 10px">
+                        删除
+                    </button>
+
+                </div>
+                <table id='manageinfolist'>
+
+                </table>
+            </div>
+
+            <!--课程管理-->
+
+            <div id='managecourse' class="tab-pane">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">课程管理</h3>
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="btn-group btn-group-justified" id="lessonListTab">
+
+                        </div>
+                        <hr style="filter:alpha(opacity=100,finishopacity=0,style=2);width:100%;background-color:#f5f5f5;height:2px;margin-top: 10px;margin-bottom: 0px" />
+
+                        <div class="btn-group btn-group-justified"  style="width: 300px;margin-top: 10px" id="selectlessontab">
+                            <a href="#allinfo" class="btn btn-success" onclick="getLessonListByid(-1)" data-toggle="tab">所有信息</a>
+                            <a href="#stateyes" class="btn btn-default" onclick="getLessonListByid(1)" data-toggle="tab">有效</a>
+                            <a href="#stateno" class="btn btn-default" onclick="getLessonListByid(2)" data-toggle="tab">无效</a>
+
+                        </div>
+                        <div class="col-xs-4">
+                            <a href="#managecourseeditor" onclick="resetCourseEditor()" data-toggle="tab" id="lessonaddbutton" class="btn btn-primary btn-sm" style="margin-top: 10px">
+                                新增
+                            </a>
+                            <button id="lessondeletebutton" class="btn btn-primary btn-sm" style="margin-top: 10px">
+                                删除
+                            </button>
+
+                        </div>
+
+                        <table id='managecourselist'>
+
+                        </table>
+
+                    </div>
+                </div>
+
+
+            </div>
+            <!--课程管理编辑面板-->
+            <div id='managecourseeditor' class="tab-pane panel panel-default">
+
+                <div class="panel-heading">
+                    <h3 class="panel-title">课程管理</h3>
+                </div>
+                <div class="panel-body">
+
+                    <table id="courseeditortable" class="table table-condensed">
+                        <tbody>
+
+                        <tr>
+                            <td class="active">课程标题</td>
+                            <td><input id="coursetitle" type="text" class="form-control input-sm personalinfo"></td>
+                            <td class="active">课程介绍</td>
+                            <td><input id="coursedescription" type="text" class="form-control input-sm personalinfo"></td>
+                        </tr>
+                        <tr>
+                            <td class="active">课程编号</td>
+                            <td><input id="coursenum" type="text" onkeyup="value=value.replace(/[^0-9a-zA-Z]/g,'')" class="form-control input-sm personalinfo"></td>
+                            <td class="active" width="20%">状态</td>
+                            <td width="30%">
+                                <input type="checkbox" class="personalinfo" value="1" id="courseeditorstatus"/> 是
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="active">所属专业</td>
+                            <td><input type="hidden" class="form-control input-sm personalinfo" id="special"></td>
+                            <td class="active">课程学时</td>
+                            <td><input id="courseduration" type="text" onKeyUp="value=value.replace(/\D/g,'')" class="form-control input-sm personalinfo"></td>
+                        </tr>
+
+                        <tr>
+                            <td class="active">课程学分</td>
+                            <td><input id="coursepoint" type="text" onKeyUp="value=value.replace(/\D/g,'')" class="form-control input-sm personalinfo"/></td>
+                            <td class="active">时间限制</td>
+                            <td><input class="form-control input-sm  personalinfo" id="timelimit" value=""
+                                       type="text"/></td>
+                        </tr>
+                        <tr>
+                            <td class="active">课程学费</td>
+                            <td><input id="coursespend" type="text" onKeyUp="value=value.replace(/\D/g,'')" class="form-control input-sm personalinfo"></td>
+                            <td class="active">添加时间</td>
+                            <td><input  class="form-control input-sm  datePicker personalinfo"
+                                       id="addcoursedate" value="" type="text"/></td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+
+                    <div class="row" style="margin-top: 15px;height: 20px">
+                        <a type="button" class="btn btn-primary btn-sm  control-label" onclick="addchapter()"
+                           style="margin-left: 100px">确 定</a>
+                        <button type="button" class="btn btn-default btn-sm  control-label" style="margin-left: 10px"
+                                onclick="resetCourseEditor()">重 置
+                        </button>
+                        <a id="restoremanagecourseeditor" href="#managecourse" type="button" data-toggle="tab"
+                           class="btn btn-default  btn-sm  control-label" style="margin-left: 10px">返 回</a>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+            <!--课程管理章节设置-->
+            <div id='managecoursechapter' class="tab-pane panel panel-default">
+
+                <div class="panel-heading">
+                    <h3 class="panel-title">课程管理</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="btn-group col-xs-12 " id="chapterListTab">
+                        <h4>教学材料</h4>
+                        <a type="button" href="#coursemanage" data-toggle="tab" class="btn btn-success">教学材料</a>
+
+                        <a type="button" onclick="getChapterWork(2)" href="#coursechapterwork" data-toggle="tab" class="btn btn-default">章节作业</a>
+                        <!--<a type="button" href="#coursefudao" data-toggle="tab" onclick="getChapterWork(3)" class="btn btn-default">辅导材料</a>-->
+                        <a type="button" href="#coursexamwork" data-toggle="tab" onclick="getChapterWork(4)" class="btn btn-default">本课单科考试</a>
+                    </div>
+                    <div class=" col-container tab-content">
+                        <div id="coursemanage" class="tab-pane active">
+
+                            <div class="row col-lg-6">
+                                <a href="#coursecontenteditor" data-toggle="tab" id="chapteraddbutton" class="btn btn-primary btn-sm" style="margin-top: 10px"
+                                        >
+                                    新增
+                                </a>
+                                <button id="chapterdeletebutton" onclick="deleteR(1)" class="btn btn-primary btn-sm" style="margin-top: 10px">
+                                    删除
+                                </button>
+                                <a id="chapterrestorebutton" href="#managecourse" data-toggle="tab" class="btn btn-primary btn-sm" style="margin-top: 10px">
+                                    返回
+                                </a>
+
+                            </div>
+
+                            <table id="coursechapterlist"></table>
+
+
+                        </div>
+
+                        <div id="coursexamwork" class="tab-pane">
+                            <div class="row col-lg-6">
+                                <a href="#chapterworkeditor" data-toggle="tab" onclick="showcoursexamwork(4)"  class="btn btn-primary btn-sm" style="margin-top: 10px"
+                                        >
+                                    新增
+                                </a>
+                                <button onclick="deleteR(4)" class="btn btn-primary btn-sm" style="margin-top: 10px">
+                                    删除
+                                </button>
+                                <a  href="#managecourse" data-toggle="tab" class="btn btn-primary btn-sm" style="margin-top: 10px">
+                                    返回
+                                </a>
+
+                            </div>
+
+                            <table id="courseexamlist"></table>
+
+
+
+
+                        </div>
+                        <div id="coursefudao" class="tab-pane">
+                            <div class="row col-lg-6">
+                                <a href="#coursecontenteditor" data-toggle="tab"  class="btn btn-primary btn-sm" style="margin-top: 10px"
+                                        >
+                                    新增
+                                </a>
+                                <button  class="btn btn-primary btn-sm" style="margin-top: 10px">
+                                    删除
+                                </button>
+                                <a  href="#managecourse" data-toggle="tab" class="btn btn-primary btn-sm" style="margin-top: 10px">
+                                    返回
+                                </a>
+
+                            </div>
+
+                            <table id="coursefudaolist"></table>
+
+
+
+
+                        </div>
+                        <div id="coursechapterwork" class="tab-pane">
+                            <div class="row col-lg-6">
+                                <a href="#chapterworkeditor" data-toggle="tab" onclick="showcoursexamwork(2)"  class="btn btn-primary btn-sm" style="margin-top: 10px"
+                                        >
+                                    新增
+                                </a>
+                                <button  class="btn btn-primary btn-sm" onclick="deleteR(2)" style="margin-top: 10px">
+                                    删除
+                                </button>
+                                <a  href="#managecourse" data-toggle="tab" class="btn btn-primary btn-sm" style="margin-top: 10px">
+                                    返回
+                                </a>
+
+                            </div>
+
+                            <table id="courseworklist"></table>
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+
+            <!--教学材料设置-->
+            <div id='coursecontenteditor' class="tab-pane panel panel-default">
+
+                <div class="panel-heading">
+                    <h3 class="panel-title">章节作业</h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-condensed">
+                        <tbody>
+
+                        <tr>
+                            <td class="active">标题</td>
+                            <td><input id="chaptertitle" type="text" class="form-control input-sm personalinfo"></td>
+
+                        </tr>
+                        <tr>
+                            <td class="active">演示稿地址</td>
+                            <td><input id="pptaddress" type="text" class="form-control input-sm personalinfo"></td>
+
+                        </tr>
+                        <tr>
+                            <td class="active">视频地址</td>
+                            <td><input id="vedioaddress" type="text" class="form-control input-sm personalinfo"></td>
+
+                        </tr>
+                        <tr>
+                            <td class="active">概要</td>
+                            <td><input id="contentdes" type="text" class="form-control input-sm personalinfo"></td>
+
+                        </tr>
+                        </tbody>
+                        </table>
+
+                    <div class="row" style="margin-top: 15px;height: 20px">
+                        <a type="button" class="btn btn-primary btn-sm  control-label" onclick="addNewCourse()"
+                           style="margin-left: 100px">确 定</a>
+                        <button type="button" class="btn btn-default btn-sm  control-label" style="margin-left: 10px"
+                                onclick="resetChapter()">重 置
+                        </button>
+                        <a id="restorechapterworkeditor" href="#managecoursechapter" type="button" data-toggle="tab"
+                           class="btn btn-default  btn-sm  control-label" style="margin-left: 10px">返 回</a>
+                    </div>
+                </div>
+
+
+            </div>
+            <!--章节作业-->
+
+            <div id='chapterworkeditor' class="tab-pane panel panel-default">
+
+                <div class="panel-heading">
+                    <h3 class="panel-title">章节作业</h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-condensed">
+                        <tbody>
+
+                        <tr>
+                            <td class="active">标题</td>
+                            <td><input id="chapterworktitle" type="text" class="form-control input-sm personalinfo"></td>
+
+                        </tr>
+                        <tr>
+                            <td class="active">时长</td>
+                            <td><input id="chapterworkduration" type="text" class="form-control input-sm personalinfo"></td>
+
+                        </tr>
+                        <tr>
+                            <td class="">单选共&nbsp&nbsp<input id="singlequestion" type="text" />&nbsp题&nbsp&nbsp/<input id="singletotalpoints" type="text" />分</td>
+
+                            <td>多选共&nbsp&nbsp<input id="multiquestion" type="text" />&nbsp题&nbsp&nbsp/<input id="multitotalpoints" type="text"/>分</td>
+
+
+                        </tr>
+                        <tr>
+
+                        </tr>
+                        <tr>
+                            <td >当前题库中共有单选题<a id="singleText"></a>>题,多选题<a id="multiText"></a>题</td>
+                            <td></td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="row" style="margin-top: 15px;height: 20px">
+                        <a type="button" class="btn btn-primary btn-sm  control-label" onclick="addNewChapterwork()"
+                           style="margin-left: 100px">确 定</a>
+                        <button type="button" class="btn btn-default btn-sm  control-label" style="margin-left: 10px"
+                                onclick="resetChapterworkeditor()">重 置
+                        </button>
+                        <a id="restorechaptersetting" href="#managecoursechapter" type="button" data-toggle="tab"
+                           class="btn btn-default  btn-sm  control-label" style="margin-left: 10px">返 回</a>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            <!--题库管理-->
+            <div id='managequestions' class="tab-pane">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">题库管理</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div  style="padding-top: 1px">
+                            <input type="hidden" class="form-control input-sm" id="allspecialforquestion">
+                        </div>
+                        <div style="word-wrap: break-word;-ms-word-wrap: break-word;word-break: normal;padding-top: 10px" >
+                            <input type="hidden" class="form-control input-sm " id="chapterforquestionListTab">
+
+                        </div>
+
+                        <div class="col-xs-4">
+                            <a href="#questioneditor" data-toggle="tab" id="questionaddbutton" class="btn btn-primary btn-sm" style="margin-top: 10px"
+                               onclick="copyLesson(1)">
+                                新增
+                            </a>
+                            <a href="#questioneditor" data-toggle="tab" id="questioncopybutton" class="btn btn-primary btn-sm" style="margin-top: 10px"
+                               onclick="copyLesson(2)">
+                                复制
+                            </a>
+                            <button id="questiondeletebutton" onclick="deleteQuestion()" class="btn btn-primary btn-sm" style="margin-top: 10px">
+                                删除
+                            </button>
+
+                        </div>
+                        <div class="row col-xs-10" style="margin-left: auto;margin-right: auto;padding-top: 10px">
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>标题:</td><td><input id="chapterinputtitle" type="text" class="form-control input-sm "/></td>
+                                    <td>章节:</td><td><input style="width: 120px" type="hidden" class="form-control input-sm" id="chapter"/></td>
+                                    <td>是否有效:</td><td><input  type="hidden" class="form-control input-sm"  id="chapterboollive"/></td>
+                                    <td>题型:</td><td><input type="hidden" class="form-control input-sm" id="questiontype"/></td>
+                                    <td><a class="btn btn-primary btn-sm" onclick="searchquestion()" >搜索</a></td>
+                                </tr>
+                            </table>
+
+                        </div>
+
+                        <table id='managequestionslist'></table>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+            <!--试题编辑-->
+            <div id="questioneditor" class="tab-pane">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">题库编辑</h3>
+                    </div>
+                    <div class="panel-body">
+
+
+                            <table class="table table-condensed">
+                                <tr><td >题型:</td><td><input type="hidden" class="form-control input-sm" id="editorquestiontype"/></td></tr>
+                                <tr><td>是否有效:</td><td><input  type="hidden" class="form-control input-sm"  id="editorchapterboollive"/></td></tr>
+                                <tr><td>所属课程:</td><td><input  type="hidden" class="form-control input-sm" id="editorlesson"/></td></tr>
+                                <tr><td>所属章节:</td><td><input  type="hidden" class="form-control input-sm"  id="editorchapter"/></td></tr>
+                                <tr>
+                                    <td >题目:</td><td><input id="editorinputtitle" type="text" class="form-control input-sm "/></td>
+                                </tr>
+                                <tr><td style="width: 70px"><input id="chk1" class="options" type="checkbox"/>A:</td><td><input  class="form-control input-sm"  id="answerA"/></td></tr>
+                                <tr><td ><input id="chk2" class="options" type="checkbox"/>B:</td><td><input  class="form-control input-sm"  id="answerB"/></td></tr>
+                                <tr><td ><input id="chk3" class="options" type="checkbox"/>C:</td><td><input  class="form-control input-sm"  id="answerC"/></td></tr>
+                                <tr><td ><input id="chk4" class="options" type="checkbox"/>D:</td><td><input  class="form-control input-sm"  id="answerD"/></td></tr>
+
+                                <tr><td>解题注释:</td><td><input  class="form-control input-sm"  id="editorremarker"/></td></tr>
+
+                                <tr>
+
+                                    <td class="active">添加时间</td>
+                                    <td><input  class="form-control input-sm  datePicker personalinfo"
+                                               id="addquestiondate" value="" type="text"/></td>
+
+                                </tr>
+
+
+
+                            </table>
+
+                            <div class="row" style="margin-top: 15px;height: 20px">
+                                <a type="button" class="btn btn-primary btn-sm  control-label" onclick="addquestion()"
+                                   style="margin-left: 100px">确 定</a>
+                                <button type="button" class="btn btn-default btn-sm  control-label" style="margin-left: 10px"
+                                        onclick="resetquestionseditor()">重 置
+                                </button>
+                                <a id="restorequestionsetting" href="#managequestions" type="button" data-toggle="tab"
+                                   class="btn btn-default  btn-sm  control-label" style="margin-left: 10px">返 回</a>
+                            </div>
+
+
+
+
+                    </div>
+                </div>
+            </div>
+            <!--鉴定辅导-->
+            <div id='manageauthenticate' class="tab-pane">
+                <div class="panel panel-default">
+
+                    <div class="panel-heading">
+                        <h3 class="panel-title">鉴定辅导</h3>
+                    </div>
+
+                    <div class="btn-group btn-group-justified"  style="width: 300px;margin-top: 10px" id="selectauthenticatetab">
+                        <a href="#" class="btn btn-success" onclick="getManageAuthenticateList(-1)" data-toggle="tab">全部</a>
+                        <a href="#" class="btn btn-default" onclick="getManageAuthenticateList('n')" data-toggle="tab">有效</a>
+                        <a href="#" class="btn btn-default" onclick="getManageAuthenticateList('y')" data-toggle="tab">无效</a>
+
+                    </div>
+                    <div class="col-xs-4">
+                        <a href="#insertauthenticatenode" data-toggle="tab" id="addauthenticate" class="btn btn-primary btn-sm" style="margin-top: 10px"
+                           onclick="">
+                            新增
+                        </a>
+                        <button id="deleteauthenticate" class="btn btn-primary btn-sm" onclick="deleteAuthenticate()" style="margin-top: 10px">
+                            删除
+                        </button>
+
+                    </div>
+                    <table id='manageauthenticatelist'></table>
+                </div>
+
+
+            </div>
+            <!--节点设置-->
+            <div id='manageauthenticatenode' class="tab-pane">
+                <div class="panel panel-default">
+
+                    <div class="panel-heading">
+                        <h3 class="panel-title">节点设置</h3>
+                    </div>
+                    <div class="col-xs-4">
+                        <a href="#manageauthenticatenodeedit" data-toggle="tab" id="addnode" class="btn btn-primary btn-sm" style="margin-top: 10px"
+                           >
+                            新增
+                        </a>
+                        <button id="deletenode" onclick="deleteAuthenticateNode()" class="btn btn-primary btn-sm" style="margin-top: 10px">
+                            删除
+                        </button>
+                        <a id="" href="#manageauthenticate" data-toggle="tab" class="btn btn-primary btn-sm" style="margin-top: 10px">
+                            返回
+                        </a>
+                    </div>
+
+                    <table id='manageauthenticatenodelist'></table>
+                    </div>
+            </div>
+            <!--新增-->
+            <div id='insertauthenticatenode' class="tab-pane">
+                <div class="panel panel-default">
+
+                    <div class="panel-heading">
+                        <h3 class="panel-title">新增</h3>
+                    </div>
+                    <table  class="table table-condensed">
+                        <tbody>
+                        <tr>
+                            <td class="active" width="20%">是否有效</td>
+                            <td width="30%">
+                                <input type="checkbox"  value="1" id="authenticatelive"/> 是
+                            </td>
+                            <td class="active">所属专业</td>
+                            <td><input type="hidden" class="form-control input-sm personalinfo" id="authenticategroup">
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td class="active">辅导编号</td>
+                            <td><input id="fudaonum" type="text" class="form-control input-sm personalinfo"></td>
+                            <td class="active">辅导栏目标题</td>
+                            <td><input id="fudaotitle" type="text" class="form-control input-sm personalinfo"></td>
+                        </tr>
+                        <tr>
+                            <td class="active">添加时间</td>
+
+                            <td><input  class="form-control input-sm  datePicker personalinfo"
+                                   id="addauthenticatetime" value="" type="text"/></td>
+
+
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="row" >
+                        <a type="button" class="btn btn-primary btn-sm  control-label" onclick="saveAuthenticate()"
+                           style="margin-left: 100px">确 定</a>
+                        <button type="button" class="btn btn-default btn-sm  control-label" style="margin-left: 10px"
+                                onclick="resetauthenticate()">重 置
+                        </button>
+                        <a id="restoreauthenticatenode" href="#manageauthenticate" type="button" data-toggle="tab"
+                           class="btn btn-default  btn-sm  control-label" style="margin-left: 10px">返 回</a>
+                    </div>
+                </div>
+            </div>
+            <!--节点编辑-->
+            <div id='manageauthenticatenodeedit' class="tab-pane">
+                <div class="panel panel-default">
+
+                    <div class="panel-heading">
+                        <h3 class="panel-title">节点设置</h3>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-condensed">
+                            <tbody>
+
+                            <tr>
+                                <td class="active">标题</td>
+                                <td><input id="nodetitle" type="text" class="form-control input-sm personalinfo"></td>
+
+                            </tr>
+                            <tr>
+                                <td class="active">演示稿地址</td>
+                                <td><input id="nodepptaddress" type="text" class="form-control input-sm personalinfo"></td>
+
+                            </tr>
+                            <tr>
+                                <td class="active">视频地址</td>
+                                <td><input id="nodevedioaddress" type="text" class="form-control input-sm personalinfo"></td>
+
+                            </tr>
+                            <tr>
+                                <td class="active">概要</td>
+                                <td><input id="nodecontentdes" type="text" class="form-control input-sm personalinfo"></td>
+
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="row" style="margin-top: 15px;height: 20px">
+                            <a type="button" class="btn btn-primary btn-sm  control-label" onclick="updateAuthenticateNode()"
+                               style="margin-left: 100px">确 定</a>
+                            <button type="button" class="btn btn-default btn-sm  control-label" style="margin-left: 10px"
+                                    onclick="resetnodeedit()">重 置
+                            </button>
+                            <a id="restorechapternode" href="#manageauthenticatenode" type="button" data-toggle="tab"
+                               class="btn btn-default  btn-sm  control-label" style="margin-left: 10px">返 回</a>
+                        </div>
+                    </div>
+                    </div>
+            </div>
+
+            <!--模块管理-->
+            <div id='managemodule' class="tab-pane">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">模块管理</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="panel panel-default">
+                            <input type="hidden" class="form-control input-sm" id="specialmoduleselect">
+                        </div>
+                        <table id="managemodulelist"></table>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            <!--批量报名-->
+            <div id='batchregistermodule' class="tab-pane">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">批量报名</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-xs-6">
+                            <a href="#" data-toggle="tab" id="addstudent" class="btn btn-primary btn-sm" style="margin-top: 10px"
+                               onclick="newStudentInfo()">
+                                单个新增
+                            </a>
+                            <button id="deletestudent" class="btn btn-primary btn-sm" onclick="deletestudent('#batchregistermodulelist')" style="margin-top: 10px">
+                                删除学员
+                            </button>
+                            <a href="#batchimportstudentdialog" data-toggle="modal" id="batchimportstudent" class="btn btn-primary btn-sm"  style="margin-top: 10px">
+                                批量导入学员信息
+                            </a>
+                        </div>
+                        <div class="col-lg-9" style="padding-top: 10px">
+                            <table class="table table-condensed">
+                                <tr><td >用户名:</td><td><input  class="form-control input-sm" id="batchusername"/></td>
+                                <td><input id="studentstate"  type="hidden" class="form-control input-sm studentstate"  /></td>
+                                    <td><a class="btn btn-primary btn-sm" onclick="searchuser()" >搜索</a></td></tr>
+                            </table>
+                        </div>
+                        <table id="batchregistermodulelist"></table>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+            <!--学员管理-->
+            <div id='studentmanage' class="tab-pane">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">学员管理</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-xs-6">
+                            <a href="#" data-toggle="tab" id="newstudent" class="btn btn-primary btn-sm" style="margin-top: 10px"
+                               onclick="newStudentInfo()">
+                                新增
+                            </a>
+                            <button id="removestudent" class="btn btn-primary btn-sm" onclick="deletestudent('#allstudentlist')" style="margin-top: 10px">
+                                删除
+                            </button>
+                            <a href="#" data-toggle="tab" id="modifystate" class="btn btn-primary btn-sm" style="margin-top: 10px"
+                               onclick="newstateinfo()">
+                                学员状态修改
+                            </a>
+                            <button id="modifydate" class="btn btn-primary btn-sm" onclick="newyouxiaoriqi()" style="margin-top: 10px">
+                                有效日期修改
+                            </button>
+                            <a  id="exportstudentinfo" onclick ="openExportStudentInfoPanel()" class="btn btn-primary btn-sm" style="margin-top: 10px">
+                                学员信息导出
+                            </a>
+
+                        </div>
+                        <div class="col-lg-12" style="padding-top: 10px">
+                            <table class="table table-condensed">
+                                <tr><td >用户名:</td><td><input id="managestudentname"  class="form-control input-sm studentusername" /></td>
+                                    <td >姓名:</td><td><input id="managename"  class="form-control input-sm studentname" /></td>
+                                    <td >单位编号:</td><td><input id="manageunit" class="form-control input-sm unitnumber" /></td>
+                                    <td >修改日期:</td><td><input id="managedate"  class="form-control input-sm datePicker" /></td>
+                                    </tr>
+                                    <tr>
+                                    <td><input  type="hidden" style="width: 90px" id="manageallprovince" class="form-control input-sm allprovince"  /></td>
+                                    <td><input  type="hidden" id="manageallspecial" class="form-control input-sm allspecial"  /></td>
+                                    <td><input  type="hidden" style="width: 90px" id="managestudentstate" class="form-control input-sm studentstate"  /></td>
+                                    <td><a class="btn btn-primary btn-sm" onclick="searchmanageuser()" >搜索</a></td></tr>
+                            </table>
+                        </div>
+                        <table id="allstudentlist"></table>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+            <!--学员成绩管理-->
+            <div id='studentresultmanage' class="tab-pane">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">学员成绩管理</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-xs-6">
+
+                            <a  id="exportstudentscoresinfo" onclick ="openexportScorespanel()" class="btn btn-primary btn-sm" style="margin-top: 10px">
+                                学员成绩导出
+                            </a>
+
+                        </div>
+                        <div class="col-lg-12" style="padding-top: 10px">
+                            <table class="table table-condensed">
+                                <tr><td >用户名:</td><td><input  class="form-control input-sm studentusername" id="username1" /></td>
+                                    <td >姓名:</td><td><input  class="form-control input-sm studentname" id="name1" /></td>
+                                    <td >单位编号:</td><td><input  class="form-control input-sm unitnumber" id="unit1" /></td>
+
+                                    <td >修改日期:</td><td><input  class="form-control input-sm datePicker" id="modifydate1" /></td>
+                                    </tr>
+                                <tr>
+                                    <td>专业</td>
+                                    <td><input name="exportspecial" id="exportexamspecial" type="hidden" class="form-control input-sm allspecial"></td>
+
+                                    <td><input  type="hidden" class="form-control input-sm allprovince" id="province1" /></td>
+
+
+                                    <td><input  type="hidden" class="form-control input-sm studentstate" id="state1" /></td>
+
+
+                                    <td><a class="btn btn-primary btn-sm" onclick="searchuserpoint()" >搜索</a></td></tr>
+                            </table>
+                        </div>
+                        <table id="allstudentresultlist"></table>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+            <!--申请处理-->
+            <div id='processaplication' class="tab-pane">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">申请处理</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-xs-6">
+                            <a href="#" data-toggle="tab" id="examineapplication" class="btn btn-primary btn-sm" style="margin-top: 10px"
+                               onclick="assertapply()">
+                                审核
+                            </a>
+                            <a id="restoreprocessaplication" style="visibility: hidden" href="#applypanel" data-toggle="tab" ></a>
+                            <button id="deleteapplication" class="btn btn-primary btn-sm" onclick="deleteapply()" style="margin-top: 10px">
+                                删除
+                            </button>
+
+
+                        </div>
+                        <div class="col-lg-9" style="padding-top: 10px">
+                            <table class="table table-condensed">
+                                <tr><td >用户名:</td><td><input  class="form-control input-sm" id="applicationusername"/></td>
+
+                                    <td><input  type="hidden" class="form-control input-sm"  id="application"/></td>
+                                    <td><input  type="hidden" class="form-control input-sm studentstate"  id="applicationstate"/></td>
+                                    <td><input  type="hidden" class="form-control input-sm"  id="auditopinion"/></td>
+                                    <td><a class="btn btn-primary btn-sm" onclick="searchapply()" >搜索</a></td></tr>
+                            </table>
+                        </div>
+                        <table id="applicationlist"></table>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            <!--结业查询-->
+            <div id='graduationquery' class="tab-pane">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">结业查询</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-xs-6">
+                            <!--<a href="#" data-toggle="tab" id="synchronous" class="btn btn-primary btn-sm" style="margin-top: 10px"
+                               onclick="">
+                                同步全部结业状态
+                            </a>-->
+                            <a   onclick ="openExportStudentInfoPanel()" class="btn btn-primary btn-sm" style="margin-top: 10px">
+                                学员信息导出
+                            </a>
+                        </div>
+                        <div class="col-lg-12" style="padding-top: 10px">
+                            <table class="table table-condensed">
+                                <tr><td class="col-lg-2"><input  type="hidden" class="form-control input-sm"  id="graduatestate"/></td>
+                                    <td >用户名:</td><td><input  class="form-control input-sm" id="graduateusername"/></td>
+                                    <td >姓名:</td><td ><input  class="form-control input-sm" id="graduatename"/></td>
+                                    <td >单位编号:</td><td class="col-lg-1"><input  class="form-control input-sm" id="graduateunit"/></td>
+                                    <td><input  type="hidden" class="form-control input-sm allspecial" /></td>
+                                    <td><a class="btn btn-primary btn-sm" onclick="graduationsearch()" >搜索</a></td></tr>
+                            </table>
+                        </div>
+                        <table id="graduationquerylist"></table>
+
+                    </div>
+                </div>
+
+
+            </div>
+            <!--延期管理-->
+            <div id='managepostponed' class="tab-pane">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">延期管理</h3>
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="col-lg-12" style="padding-top: 10px">
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td >用户名:</td><td><input  class="form-control input-sm" id="postponedusername"/></td>
+                                    <td >姓名:</td><td ><input  class="form-control input-sm" id="postponedname"/></td>
+                                    <td >单位编号:</td><td class="col-lg-1"><input  class="form-control input-sm" id="postponedunit"/></td>
+                                    <td><input  type="hidden" class="form-control input-sm"  id="postponedstate"/></td>
+                                    <td><input  type="hidden" class="form-control input-sm allspecial"/></td>
+                                    <td><a class="btn btn-primary btn-sm" onclick="postponedsearch()" >搜索</a></td></tr>
+                            </table>
+                        </div>
+                        <table id="managepostponedlist"></table>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+            <!--章节测试-->
+            <div id='chapterexam' class="tab-pane">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">章节测试</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-xs-6">
+                            <a href="#" data-toggle="tab" id="deletechapterexam" class="btn btn-primary btn-sm" style="margin-top: 10px"
+                               onclick="">
+                               删除
+                            </a>
+                            <a href="#modifychapertest"  data-toggle="modal" id="newchaptertest" class="btn btn-primary btn-sm" style="margin-top: 10px"
+                               onclick="openmodifychapertest()">
+                                新增章节测试
+                            </a>
+                            <a href="#modifychapertest" data-toggle="modal" id="newdanketest" class="btn btn-primary btn-sm" style="margin-top: 10px"
+                               onclick="openmodifydanketest()">
+                                新增单科考试
+                            </a>
+                        </div>
+                        <div class="col-lg-12" style="padding-top: 10px">
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td style="width: 60px">用户名:</td><td style="width: 100px"><input  class="form-control input-sm" id="examusername"/></td>
+                                    <td><input  type="hidden" class="form-control input-sm"  id="examlesson"/></td>
+                                    <td><input  type="hidden" class="form-control input-sm " id="examchapter"/></td>
+                                    <td><a class="btn btn-primary btn-sm" onclick="searchExamUser()" >搜索</a></td></tr>
+                            </table>
+                        </div>
+                        <table id="chapterexamlist"></table>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+            <!--结业考试-->
+            <div id='graduateexam' class="tab-pane">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">结业考试</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-xs-6">
+                            <a href="#graduateexameditor" data-toggle="tab" id="addexamtype" class="btn btn-primary btn-sm" style="margin-top: 10px"
+                               onclick="">
+                                添加考试类型
+                            </a>
+
+                        </div>
+
+                        <table id="examtypelist"></table>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div id="graduateexameditor"  class="tab-pane">
+                <div class="panel-heading">
+                    <h3 class="panel-title">结业考试</h3>
+                </div>
+                <div class="panel-body">
+
+                    <table id="graduateexamtable" class="table table-condensed">
+                        <tbody>
+
+                        <tr>
+                            <td class="active">结业考试类型</td>
+                            <td><input id="examtype" type="text" class="form-control input-sm "></td>
+                            <td class="active">时长</td>
+                            <td><input id="examduration" type="text" class="form-control input-sm "></td>
+                        </tr>
+                        <tr>
+                            <td class="active">专业</td>
+                            <td><input id="examspecial" type="hidden" class="form-control input-sm allspecial"></td>
+                            <td class="active" >选择题数量</td>
+                            <td >
+                                <input  id="choicenum"  type="text" class="form-control input-sm " />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="active">选择题分值</td>
+                            <td><input id="choiceratio" type="text" class="form-control input-sm" ></td>
+                            <td class="active">案例分析题数量</td>
+                            <td><input id="casenumber"  type="text" class="form-control input-sm"></td>
+                        </tr>
+
+                        <tr>
+                            <td class="active">案例分析题分值</td>
+                            <td><input id="caseratio"  type="text" class="form-control input-sm "/></td>
+                            <td class="active">问答题数量</td>
+                            <td><input class="form-control input-sm " id="eassynumber"
+                                       type="text"/></td>
+                        </tr>
+                        <tr>
+                            <td class="active">问答题分值</td>
+                            <td><input id="eassyratio" type="text" class="form-control input-sm "></td>
+
+                        </tr>
+
+                        </tbody>
+                    </table>
+
+                    <div class="row" style="margin-top: 15px;height: 20px">
+                        <a type="button" class="btn btn-primary btn-sm  control-label" onclick="saveTestType()"
+                           style="margin-left: 100px">确 定</a>
+                        <button type="button" class="btn btn-default btn-sm  control-label" style="margin-left: 10px"
+                                onclick="">重 置
+                        </button>
+                        <a href="#graduateexam" type="button" data-toggle="tab" id="restoregraduateexam"
+                           class="btn btn-default  btn-sm  control-label" style="margin-left: 10px">返 回</a>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div id="paperseditor" class="tab-pane">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">科目：<a id="coursechapter"></a></h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-xs-6">
+                            <a href="#" id="paperduration" class="" style="margin-top: 10px">
+
+                                时长：90分钟
+                            </a>
+                            <a data-toggle="tab" href="#graduateexam" class="btn btn-sm btn-primary">返回</a>
+                        </div>
+
+                        <table id="paperslist"></table>
+                        <table class="table table-condensed" style="margin-top: 15px;height: 20px">
+                            <tr>
+                                <td>试卷名称:</td><td><input  class="form-control input-sm" id="newpapersname"/></td>
+                                <td><a type="button" class="btn btn-primary btn-sm  control-label" onclick="addexampapers()"
+                                       style="margin-left: 100px">添加试卷</a></td>
+                            </tr>
+
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="choicePanel" class="tab-pane">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">技能选择题</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-xs-12">
+                            <p>本部分需要习题<input id="choicenum1" disabled type="text" />,已有习题<input id="choicenum2" disabled type="text" /></p>
+                        </div>
+                        <div class="col-xs-12">
+                            <a id="addchoice" href="#choicequestionseditor"  data-toggle="modal"  class="btn btn-primary btn-sm" style="margin-top: 10px"
+                               >
+                                添加试题
+                            </a>
+                            <a data-toggle="tab" href="#paperseditor" class="btn btn-sm btn-primary">返回</a>
+                        </div>
+
+                        <table id="choicequestionslist"></table>
+
+                    </div>
+                </div>
+            </div>
+
+            <div></div>
+            <!--选择题编辑栏-->
+            <div class="panel panel-default modal fade" id="choicequestionseditor" role="dialog">
+
+                <div class="modal-dialog" style="width: 600px;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span-->
+                            <!--aria-hidden="true">&times;</span></button>-->
+                            <h4 class="modal-title">新增选择题</h4>
+                        </div>
+                        <table  class="table table-condensed">
+                            <tbody>
+                            <tr>
+                                <td style="text-align: center">题干</td>
+                                <td>
+                                    <input  class="form-control input-sm studentusername" id="questiontitle"/>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td style="text-align: center">类型</td>
+
+                                <td><input  type="hidden" class="form-control input-sm"  id="choicequestionstype"/></td>
+
+
+                            </tr>
+                            <tr><td style="text-align: center"><input type="radio" name="choice" class="radiooptopns" /><input type="checkbox" class="checkptopns"/>A:</td><td><input  class="form-control input-sm"  id="choicequestionsanswerA"/></td></tr>
+                            <tr><td style="text-align: center"><input type="radio" name="choice" class="radiooptopns"/><input type="checkbox" class="checkptopns"/>B:</td><td><input  class="form-control input-sm"  id="choicequestionsanswerB"/></td></tr>
+                            <tr><td style="text-align: center"><input type="radio" name="choice" class="radiooptopns"/><input type="checkbox" class="checkptopns"/>C:</td><td><input  class="form-control input-sm"  id="choicequestionsanswerC"/></td></tr>
+                            <tr><td style="text-align: center"><input type="radio" name="choice" class="radiooptopns"/><input type="checkbox" class="checkptopns"/>D:</td><td><input  class="form-control input-sm"  id="choicequestionsanswerD"/></td></tr>
+                            </tbody>
+                        </table>
+
+
+                        <div class="modal-footer">
+                            <div class="row">
+                                <button type="button" class="btn btn-primary" style="position:relative;right: 270px"
+                                        onclick="savaChoiceQuestion()">确 定
+                                </button>
+                                <button type="button" class="btn btn-default" style="position: relative;right: 250px"
+                                        onclick="closeQuestionModal()">关 闭
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!--案例分析题-->
+            <div id="casePanel" class="tab-pane">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">案例分析题</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-xs-12">
+                            <p>本部分需要习题<input id="casenum1" disabled type="text" />,已有习题<input id="casenum2" disabled type="text" /></p>
+                            <a data-toggle="tab" href="#paperseditor" class="btn btn-sm btn-primary">返回</a>
+                        </div>
+                        <div class="col-xs-12">
+                            <a id="addcase" href="#casequestionseditor"  data-toggle="modal"  class="btn btn-primary btn-sm" style="margin-top: 10px"
+                                    >
+                                添加案例
+                            </a>
+
+                        </div>
+
+                        <table id="casequestionslist"></table>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default modal fade" id="casequestionseditor" role="dialog">
+
+                <div class="modal-dialog" style="width: 600px;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span-->
+                            <!--aria-hidden="true">&times;</span></button>-->
+                            <h4 class="modal-title">添加案例</h4>
+                        </div>
+                        <table  class="table table-condensed">
+                            <tbody>
+                            <tr>
+                                <td style="text-align: left">案例：</td>
+
+
+                            </tr>
+                            <tr>
+
+                                <td><textarea id="casetextarea" class="form-control" rows="8"></textarea></td>
+
+
+                            </tr>
+
+                            </tbody>
+                        </table>
+
+
+                        <div class="modal-footer">
+                            <div class="row">
+                                <button type="button" class="btn btn-primary" style="position:relative;right: 270px"
+                                        onclick="saveCaseQuestion()">确 定
+                                </button>
+                                <button type="button" class="btn btn-default" style="position: relative;right: 250px"
+                                        onclick="closeCaseQuestionModal()">关 闭
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!--问答题-->
+            <div id="caseQAPanel" class="tab-pane">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">案例问答题</h3>
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="col-xs-12">
+                            <a data-toggle="tab" href="#paperseditor" class="btn btn-sm btn-primary">返回</a>
+                            <p>
+                                案例：
+                            </p>
+
+                        </div>
+                        <div>
+
+                            <textarea id="essaytextarea" class="form-control" rows="8"></textarea>
+
+
+                        </div>
+                        <div class="col-xs-6">
+                            <a href="#" onclick="saveEssayContent()"  data-toggle="modal"class="btn btn-primary btn-sm" style="margin-top: 10px"
+                                    >
+                                保存案例
+                            </a>
+
+                        </div>
+                        <div class="col-xs-12">
+                            <p>本部分需要习题<input id="essaynum1" disabled type="text" />,已有习题<input id="essaynum2" disabled type="text" /></p>
+                        </div>
+                        <div class="col-xs-12">
+                            <a href="#caseQAEditorPanel" data-toggle="tab" class="btn btn-primary btn-sm">添加试题</a>
+                        </div>
+
+                        <table id="QAlist"></table>
+
+                    </div>
+                </div>
+            </div>
+
+            <!--问答题编辑-->
+            <div id="caseQAEditorPanel" class="tab-pane">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">新增问答题</h3>
+                    </div>
+                    <div class="panel-body">
+
+                        <a id="restorecaseQAPanel" data-toggle="tab" href="#caseQAPanel" class="btn btn-sm btn-primary">返回</a>
+                        <div>
+                            题目：
+                            <textarea id="essayeditortextarea" class="form-control" rows="8"></textarea>
+
+
+                        </div>
+                        <div>
+                            答案：
+                            <textarea id="essayanswertextarea" class="form-control" rows="8"></textarea>
+
+
+                        </div><br>
+
+                        分值：<input id="esssyscore" type="text" /><br>
+                        <div>
+                            <br>
+                           <a onclick="saveessayquestion()" class="btn btn-primary">保存试题</a>
+
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+
+            <!--申请处理-->
+            <div id="applypanel"  class="tab-pane">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">申请管理</h3>
+                    </div>
+                    <div class="panel-body">
+                        <table id="applytable" class="table table-condensed">
+                            <tbody>
+                            <tr>
+                                <td class="active" width="15%">学业状态</td>
+                                <td width="85%">
+                                    <input disabled type="text" class="form-control input-sm" id="applystate">
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td class="active">用户名</td>
+                                <td><input disabled type="text" class="form-control input-sm" id="applyusername">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="active">姓名</span></td>
+                                <td><input id="applyname" type="text" class="form-control input-sm"></td>
+
+                            </tr>
+                            <tr>
+                                <td class="active">学业申请</td>
+                                <td><input  id="apply" type="text" class="form-control input-sm"></td>
+                            </tr>
+
+                            <tr >
+                                <td class="active">申请时间<span style="color: #ff0000;font-size: x-large">*</span></td>
+                                <td><input  id="applydate" type="text" class="form-control input-sm"></td>
+                            </tr>
+
+                            <tr>
+                                <td class="active">开始时间</td>
+
+                                <td><input  id="applystartdate" type="text" class="form-control input-sm"></td>
+                            </tr>
+                            <tr>
+                                <td class="active">结束时间</td>
+
+                                <td><input  id="applyenddate" type="text" class="form-control input-sm"></td>
+                            </tr>
+
+                            <tr>
+                                <td class="active">审核意见</td>
+                                <td width="85%">
+                                    <input type="hidden" class="form-control input-sm" id="applyresult">
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="active">补充说明</td>
+
+                                <td><input  id="addedinfo" type="text" class="form-control input-sm"></td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                        <div class="row" style="margin-top: 15px;height: 20px">
+                            <a type="button" class="btn btn-primary btn-sm  control-label" onclick="submitapplydeal()"
+                               style="margin-left: 100px">提 交</a>
+
+                            <a id="restoreapply" href="#processaplication" type="button" data-toggle="tab"
+                               class="btn btn-default  btn-sm  control-label" style="margin-left: 10px">返 回</a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div id="infopanel"  class="tab-pane">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">资讯管理</h3>
+                    </div>
+                    <div class="panel-body">
+                        <table id="newstable" class="table table-condensed">
+                            <tbody>
+                            <tr>
+                                <td class="active" width="15%">状态</td>
+                                <td width="85%">
+                                    <input type="hidden" class="form-control input-sm" id="newsstate">
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td class="active" width="15%">专业</td>
+                                <td width="85%">
+                                    <input type="hidden" class="form-control input-sm allspecial" id="newsspecial">
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td class="active">标题</td>
+                                <td><input type="text" class="form-control input-sm" id="newstitle">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="active">关键字<span>(多个用逗号分隔)</span></td>
+                                <td><input id="keyword" type="text" class="form-control input-sm"></td>
+
+                            </tr>
+                            <tr>
+                                <td class="active">信息来源</td>
+                                <td><input  id="newssource" type="text" class="form-control input-sm"></td>
+                            </tr>
+
+                            <tr >
+                                <td class="active">添加时间<span style="color: #ff0000;font-size: x-large">*</span></td>
+                                <td><input class="form-control input-sm  datePicker personalinfo" id="newsadddate"
+                                           value="" type="text"/></td>
+                            </tr>
+
+                            <tr>
+                                <td class="active">内容</td>
+
+                                <td><textarea name="text" class="summernote" id="contents" title="Contents"></textarea></td>
+                            </tr>
+
+
+                            </tbody>
+                        </table>
+                        <div class="row" style="margin-top: 15px;height: 20px">
+                            <a type="button" class="btn btn-primary btn-sm  control-label" onclick="updatenews()"
+                               style="margin-left: 100px">确 定</a>
+                            <button type="button" class="btn btn-default btn-sm  control-label" style="margin-left: 10px"
+                                    onclick="resetnewsedit()">重 置
+                            </button>
+                            <a id="restoremanageinfo" href="#manageinfo" type="button" data-toggle="tab"
+                               class="btn btn-default  btn-sm  control-label" style="margin-left: 10px">返 回</a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!--案例编辑容器-->
+            <div id="casequestionmanagepanel" class="tab-pane">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">案例内容管理</h3>
+                    </div>
+                    <div class="panel-body">
+                        案例 <a data-toggle="tab" href="#casePanel" class="btn btn-sm btn-primary">返回</a>
+                        <div style="width: 100%;height: 100px">
+                            <textarea id="casetext" style="width: 100%;height: 100%"></textarea>
+                        </div>
+                        <br>
+                        <a role="button" href="#" onclick="savecasesubquestiontext()"  class="btn btn-sm btn-primary">保存案例内容</a><br><br>
+                        技能选择题：<br>
+                        <a href="#choicequestionseditor" data-toggle="modal" class="btn btn-sm btn-primary">添加试题</a>
+                        <table id="casesubquestionslist"></table>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+        </div>
+
+        <div class="modal fade" id="passwordmodal" role="dialog">
+            <div class="modal-dialog" style="width: 420px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" onclick="closePasswordModal();">&times;</button>
+                        <h4 class="modal-title">修改密码</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="updatePwd_form" class="form-horizontal" style="width:100%;margin-top: 10px;">
+
+                            <div class="form-group" style="margin-top: 15px;">
+                                <label class="col-sm-3 control-label">新密码</label>
+
+                                <div class="col-sm-8">
+                                    <input type="password" id="newPassword" name="newPassword"
+                                           placeholder="Password" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">确认密码</label>
+
+                                <div class="col-sm-8">
+                                    <input type="password" id="passwordAgain" name="passwordAgain"
+                                           placeholder="Password"  class="form-control">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+
+                        <button id="submitbtn" type="button" class="btn btn-primary" onclick="submitPassword();">确 定</button>
+                        <button type="button" class="btn btn-default" onclick="closePasswordModal();">关 闭</button>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="studentstatemodal" role="dialog">
+            <div class="modal-dialog" style="width: 420px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" onclick="closestateinfo();">&times;</button>
+                        <h4 class="modal-title">修改状态</h4>
+                    </div>
+
+                    <ul hidden="hidden" class="nav nav-tabs" id="myTab">
+
+                        <li><a href="#tabpanestate">Profile</a></li>
+                        <li><a href="#tabpanexiuxue">Messages</a></li>
+                        <li><a href="#tabpanetuixue">Settings</a></li>
+                        <li><a href="#tabpanejieye">Profile</a></li>
+                        <li><a href="#tabpanelinshi">Messages</a></li>
+                        <li><a href="#tabpaneyanxue">Settings</a></li>
+                        <li><a href="#tabpanehuifu">Profile</a></li>
+
+                    </ul>
+
+                    <div class="modal-body">
+                        <form id="updatestate_form" class="form-horizontal" style="width:100%;margin-top: 10px;">
+                            <div class="form-group" style="margin-top: 15px;">
+                                <label class="col-sm-3 control-label">修改状态</label>
+
+                                <div class="col-sm-8">
+                                    <input type="hidden" class="form-control input-sm studentstate1"/>
+                                </div>
+                            </div>
+                            <div class="tab-content">
+
+                                <div id="tabpanestate" class="tab-pane active">
+                                    <div class="form-group" style="margin-top: 15px;">
+                                        <label class="col-sm-3 control-label">开始时间</label>
+
+                                        <div class="col-sm-8">
+                                            <input  class="form-control input-sm datePicker personalinfo" id="starttime" value=""
+                                                    type="text"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">结束时间</label>
+
+                                        <div class="col-sm-8">
+                                            <input class="form-control input-sm datePicker personalinfo" id="endtime" value=""
+                                                   type="text"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="tabpanexiuxue" class="tab-pane">
+                                    <div class="form-group" style="margin-top: 15px;">
+                                        <label class="col-sm-3 control-label">开始时间</label>
+
+                                        <div class="col-sm-8">
+                                            <input  class="form-control input-sm datePicker personalinfo" id="xiuxuestarttime" value=""
+                                                    type="text"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">结束时间</label>
+
+                                        <div class="col-sm-8">
+                                            <input class="form-control input-sm datePicker personalinfo" id="xiuxueendtime" value=""
+                                                   type="text"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="tabpanetuixue" class="tab-pane">
+
+                                </div>
+                                <div id="tabpanejieye" class="tab-pane">
+
+                                </div>
+                                <div id="tabpanelinshi" class="tab-pane">
+                                    <div class="form-group" style="margin-top: 15px;">
+                                        <label class="col-sm-3 control-label">开始时间</label>
+
+                                        <div class="col-sm-8">
+                                            <input  class="form-control input-sm datePicker personalinfo" id="linshistarttime" value=""
+                                                    type="text"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">结束时间</label>
+
+                                        <div class="col-sm-8">
+                                            <input class="form-control input-sm datePicker personalinfo" id="linshiendtime" value=""
+                                                   type="text"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="tabpaneyanxue" class="tab-pane">
+                                    <div class="form-group" style="margin-top: 15px;">
+                                        <label class="col-sm-3 control-label">开始时间</label>
+
+                                        <div class="col-sm-8">
+                                            <input  class="form-control input-sm datePicker personalinfo" id="yanxuestarttime" value=""
+                                                    type="text"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">结束时间</label>
+
+                                        <div class="col-sm-8">
+                                            <input class="form-control input-sm datePicker personalinfo" id="yanxueendtime" value=""
+                                                   type="text"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="tabpanehuifu" class="tab-pane">
+
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">结束时间</label>
+
+                                        <div class="col-sm-8">
+                                            <input class="form-control input-sm datePicker personalinfo" id="jiesuendtime" value=""
+                                                   type="text"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+
+                        <button  type="button" class="btn btn-primary" onclick="submitstateinfo();">确 定</button>
+                        <button type="button" class="btn btn-default" onclick="closestateinfo();">关 闭</button>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="modal fade" id="studentyouxiaoriqi" role="dialog">
+            <div class="modal-dialog" style="width: 420px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" onclick="closestateinfo();">&times;</button>
+                        <h4 class="modal-title">有效日期设置</h4>
+                    </div>
+
+
+
+                    <div class="modal-body">
+                        <form>
+                        <div class="" style="height: 50px">
+
+                            <label class="col-sm-3 control-label">有效日期</label>
+
+                            <div class="col-sm-8">
+                                <input  class="form-control input-sm datePicker personalinfo" id="youxiaotime" value=""
+                                        type="text"/>
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+
+                        <button  type="button" class="btn btn-primary" onclick="submityouxiaoriqi();">确 定</button>
+                        <button type="button" class="btn btn-default" onclick="closeyouxiaoriqi();">关 闭</button>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="batchimportstudentdialog" role="dialog">
+            <div class="modal-dialog" style="width: 420px;height: 300px">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" onclick="closebatchimportstudentdialog();">&times;</button>
+                        <h4 class="modal-title">批量导入学员信息</h4>
+                    </div>
+
+
+
+                    <div class="modal-body" style="height: 200px">
+
+                        <div >
+                            <div class="col-lg-3">专业：</div>
+                            <div id="signspecialpanel" class="col-lg-9"></div>
+
+                        </div>
+                        <div >
+                            <div class="col-lg-3">期限：</div>
+                            <div  class="col-lg-9">
+                                <input id="learnduration" onkeyup="value=value.replace(/[^\d]/g,'') " type="text"/>天
+                            </div>
+
+                        </div>
+                            <div class="" style="height: 100px">
+                                <iframe style="width: 400px;height: 100px" src="http://localhost:8080/ExamService/upload.jsp"></iframe>
+                            </div>
+
+                    </div>
+                    <div class="modal-footer">
+
+
+                        <button type="button" class="btn btn-default" onclick="closebatchimportstudentdialog();">关 闭</button>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modifychapertest" role="dialog" >
+            <div class="modal-dialog" style="width: 420px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" onclick="modifychapertestModal();">&times;</button>
+                        <h4 id="modifytile" class="modal-title">添加章节作业</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal" style="width:100%;margin-top: 10px;">
+
+                            <div class="form-group" style="margin-top: 15px;">
+                                <label class="col-sm-3 control-label">学员用户名</label>
+
+                                <div class="col-sm-8">
+                                    <input type="text" id="modifyusername"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">专业</label>
+
+                                <div class="col-sm-8">
+
+                                    <input type="hidden" id="modifyspecial"
+                                           class="form-control allspecial">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">课程</label>
+
+                                <div class="col-sm-8">
+                                    <input type="hidden" id="modifycourse"
+                                            class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">章节</label>
+
+                                <div class="col-sm-8">
+                                    <input type="hidden" id="modifychapter"
+                                            class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">分数</label>
+
+                                <div class="col-sm-8">
+                                    <input type="text" id="modifyscore"
+                                            class="form-control">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+
+                        <button  type="button" class="btn btn-primary" onclick="submitmodifychapterwork();">确 定</button>
+                        <button type="button" class="btn btn-default" onclick="modifychapertestModal();">关 闭</button>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="learninfomodal" role="dialog">
+            <div class="modal-dialog" style="width: 420px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" onclick="closelearninfoModal();">&times;</button>
+                        <h4 class="modal-title">有效时间</h4>
+                    </div>
+                    <div class="modal-body">
+                        <table id="studentduration">
+
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="chapterexamdetail" role="dialog">
+            <div class="modal-dialog" style="width: 420px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" onclick="closechapterexamModal();">&times;</button>
+                        <h4 class="modal-title">试卷详解</h4>
+                    </div>
+                    <div class="modal-body">
+                        <ul id="finalexampaper-body" style="padding:0px;">
+
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="exportStundentFields" role="dialog">
+
+            <div class="modal-dialog" style="width: 420px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" onclick="closeexportStundentModal();">&times;</button>
+                        <h4 class="modal-title">学员信息导出</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="exportStundetInfo" enctype="application/x-www-form-urlencoded" name="form1" >
+                            <input type="hidden" name="reg_date" value="">
+                            <input type="hidden" name="_m" value="student/manage">
+                            <input type="hidden" name="_cid" value="32">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td valign="top"><table width="100%" border="0" cellspacing="1" cellpadding="2">
+
+                                        <input type=hidden name="_a" value="export_do">
+                                        <input type=hidden name="s_state" value="">
+                                        <input type=hidden name="s_province" value="">
+                                        <input type=hidden name="s_username" value="">
+                                        <input type=hidden name="s_name" value="">
+                                        <input type=hidden name="s_mayor" value="">
+                                        <input type=hidden name="s_unit" value="">
+                                        <input type=hidden name="s_modify" value="">
+                                        <input type=hidden name="s_operatename" value="">
+                                        <input type=hidden name="s_operatenfromnum" value="">
+                                        <input type=hidden name="s_operatentonum" value="">
+                                        <input type=hidden name="s_isgraduate" value="">
+                                        <tr>
+                                            <td width="160" align="left" bgcolor="#f5f5f5">请选择要导出的字段<input type="checkbox" name='toggle_1'
+                                                                                                            id='toggle_1'
+                                                                                                            onclick='check_all(25,1)'
+                                                                                                            checked></td>
+                                            <td width="100">
+                                                <input type='checkbox' name='state' value='state' id='cb_1_1' checked><label for='cb_1_1'>状态</label><br>
+                                                <input type='checkbox' name='username' value='username' id='cb_1_2' checked><label for='cb_1_2'>用户名</label><br>
+                                                <input type='checkbox' name='province' value='province' id='cb_1_14' checked><label for='cb_1_14'>省份</label><br>
+                                                <input type='checkbox' name='password_question' value='password_question' id='cb_1_4' checked><label for='cb_1_4'>密码提示问题</label><br>
+                                                <input type='checkbox' name='password_answer' value='password_answer' id='cb_1_5' checked><label for='cb_1_5'>密码提示答案</label><br>
+                                                <input type='checkbox' name='name' value='name' id='cb_1_6' checked><label for='cb_1_6'>真实姓名</label><br>
+                                                <input type='checkbox' name='gender' value='gender' id='cb_1_7' checked><label for='cb_1_7'>性别</label><br>
+                                                <input type='checkbox' name='phone' value='phone' id='cb_1_8' checked><label for='cb_1_8'>固定电话</label><br>
+                                                <input type='checkbox' name='cellphone' value='cellphone' id='cb_1_9' checked><label for='cb_1_9'>手机号码</label><br>
+                                                <input type='checkbox' name='email' value='email' id='cb_1_10' checked><label for='cb_1_10'>电子邮箱</label><br>
+                                                <input type='checkbox' name='zjlx' value='zjlx' id='cb_1_11' checked><label for='cb_1_11'>证件类型</label><br>
+                                                <input type='checkbox' name='zjhm' value='zjhm' id='cb_1_12' checked><label for='cb_1_12'>证件号码</label><br>
+                                                <input type='checkbox' name='birthday' value='birthday' id='cb_1_13' checked><label for='cb_1_13'>出生日期</label><br>
+                                                </td>
+                                            <td width="100">
+
+                                                <input type='checkbox' name='addr' value='addr' id='cb_1_15' checked><label for='cb_1_15'>邮寄地址</label><br>
+                                                <input type='checkbox' name='postcode' value='postcode' id='cb_1_16' checked><label for='cb_1_16'>邮编</label><br>
+                                                <input type='checkbox' name='education' value='education' id='cb_1_17' checked><label for='cb_1_17'>学历</label><br>
+                                                <input type='checkbox' name='special' value='special' id='cb_1_18' checked><label for='cb_1_18'>所学专业</label><br>
+                                                <input type='checkbox' name='haveClass' value='haveClass' id='cb_1_19' checked><label for='cb_1_19'>已获心理咨询师级别</label><br>
+                                                <input type='checkbox' name='haveClassDate' value='haveClassDate' id='cb_1_20' checked><label for='cb_1_20'>获得日期</label><br>
+                                                <input type='checkbox' name='signSpecial' value='signSpecial' id='cb_1_21' checked><label for='cb_1_21'>报名专业</label><br>
+                                                <input type='checkbox' name='signClass' value='signClass' id='cb_1_22' checked><label for='cb_1_22'>报名级别</label><br>
+                                                <input type='checkbox' name='add_Date' value='add_Date' id='cb_1_23' checked><label for='cb_1_23'>注册日期</label><br>
+                                                <input type='checkbox' name='lastactivity' value='lastactivity' id='cb_1_24' checked><label for='cb_1_24'>最后操作日期</label><br>
+                                                <input type='checkbox' name='unit' value='unit' id='cb_1_25' checked><label for='cb_1_25'>单位</label><br>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td bgcolor="#f5f5f5">导出数据范围</td>
+                                            <td colspan="2" style="text-align: center">
+                                                <p>  <input style="width: 80px" id="fromnum" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'''')" type="text"/> 到 <input style="width: 80px" id="tonum" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'''')" type="text"/>
+                                            </p>
+                                            </td>
+                                        </tr>
+
+
+                                    </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button  type="button" class="btn btn-primary" onclick="exportStudent()">导出</button>
+                        <button type="button" class="btn btn-default" onclick="closeexportStundentModal()">关 闭</button>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal fade" id="exportStundentExam" role="dialog">
+
+            <div class="modal-dialog" style="width: 420px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" onclick="closeexportExamModal();">&times;</button>
+                        <h4 class="modal-title">考试成绩导出</h4>
+                    </div>
+                    <div class = "modal-body">
+                        <form id="exportExamInfo" enctype="application/x-www-form-urlencoded" name="form1" >
+                            <table style="width:100%">
+                                <input type=hidden name="_a" value="export_do">
+                                <input type=hidden name="s_state" value="">
+                                <input type=hidden name="s_province" value="">
+                                <input type=hidden name="s_username" value="">
+                                <input type=hidden name="s_name" value="">
+                                <input type=hidden name="s_mayor" value="">
+                                <input type=hidden name="s_unit" value="">
+                                <input type=hidden name="s_modify" value="">
+                                <input type=hidden name="s_operatename" value="">
+                                <input type=hidden name="s_operatenfromnum" value="">
+                                <input type=hidden name="s_operatentonum" value="">
+                                <!--<tr style="width:100%">
+                                    <td class="active"><label for='exportexamspecial'>专业</label></td>
+                                    <td><input name="exportspecial" id="exportexamspecial" type="hidden" class="form-control input-sm allspecial"></td>
+
+                                </tr>-->
+                                <tr style="width:100%">
+                                    <td class="active"><label for=''>范围</label></td>
+
+                                    <td colspan="2" style="height: 50px;">
+                                        <input style="width: 150px" id="examfromnum" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'''')" type="text"/> 到 <input style="width: 150px" id="examtonum" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'''')" type="text"/>
+
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button  type="button" class="btn btn-primary" onclick="exportScores()">导出</button>
+                        <button type="button" class="btn btn-default" onclick="closeexportExamModal()">关 闭</button>
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--[if lt IE9]>
+<script src="../js/lib/html5/respond.min.js"></script>
+<script src="../js/lib/html5/html5.js"></script>
+<script src="../js/lib/html5/json2.js"></script>
+<![endif]-->
+
+
+<script src="../js/lib/jquery1.11.1/jquery-1.11.1.js"></script>
+<script src="../js/lib/jquery1.11.1/jquery.cookie.js" type="text/javascript"></script>
+<script src="../js/lib/bootstrap-3.3.0-dist/js/bootstrap.js"></script>
+<script src="../js/lib/bootstrap-table-dist/bootstrap-table.js"></script>
+<script src="../js/lib/jquery1.11.1/base64.min.js"></script>
+<script src="../js/lib/bootstrap-table-dist/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="../js/lib/bootstrap-datepicker/js/bootstrap-datepicker.js" type="text/javascript"></script>
+<script src="../js/lib/bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-CN.js" type="text/javascript"></script>
+<script type="text/javascript" src="../js/lib/jquery1.11.1/select2/select2.js"></script>
+<script type="text/javascript" src="../js/lib/jquery1.11.1/select2/select2_locale_zh-CN.js"></script>
+
+
+<script type="text/javascript" src="../js/lib/summernote/summernote.js"></script>
+<script type="text/javascript" src="../js/lib/summernote/summernote-zh-CN.js"></script>
+<!-- 提示框 JS -->
+<script src="../js/lib/popUpBox/inside.js" type="text/javascript"></script>
+<script src="../js/main/Application.js"></script>
+<script src="../js/main/Application.Util.js"></script>
+<script src="../js/main/adminmain.js"></script>
+<script src="../js/lib/bootstrap-3.3.0-dist/js/qiao.util.js"></script>
+<script src="../js/lib/bootstrap-3.3.0-dist/js/qiao.bs.js"></script>
+
+</body>
+</html>
